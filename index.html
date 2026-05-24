@@ -1,321 +1,1744 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>이현주 | 헬스케어 서비스 기획자</title>
-    <meta
-      name="description"
-      content="심리·임상 경험을 디지털 헬스케어 서비스로 번역하는 헬스케어 서비스 기획자 이현주의 포트폴리오"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <header class="site-header" aria-label="주요 이동 메뉴">
-      <a class="brand" href="#top" aria-label="첫 화면으로 이동">Hyunju Lee</a>
-      <nav class="nav-links" aria-label="페이지 섹션">
-        <a href="#why">Why Me</a>
-        <a href="#process">Process</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-      </nav>
-      <a class="header-cta" href="mailto:creativehyeonju@gmail.com">Contact</a>
-    </header>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>이현주 · 디지털 헬스케어 서비스 기획자</title>
 
-    <main id="top">
-      <section class="hero section-band">
-        <div class="hero-content">
-          <p class="eyebrow">Healthcare Service Planner</p>
-          <h1>심리·임상 경험을 디지털 헬스케어 서비스로 번역하는 기획자</h1>
-          <p class="hero-copy">
-            사용자의 감정, 인지, 회복 과정, 행동 장벽을 이해하고 이를 콘텐츠 구조,
-            추천 로직, UX 플로우, 기능명세로 설계합니다.
-          </p>
-          <div class="hero-actions" aria-label="주요 섹션 이동">
-            <a class="button primary" href="#projects">프로젝트 보기</a>
-            <a class="button secondary" href="#why">핵심 역량 보기</a>
-          </div>
-          <ul class="tag-list" aria-label="핵심 키워드">
-            <li>Healthcare PM</li>
-            <li>Service Planning</li>
-            <li>UX Research</li>
-            <li>Content Strategy</li>
-            <li>Clinical Insight</li>
-          </ul>
-        </div>
-        <aside class="hero-panel" aria-label="핵심 성과 요약">
-          <div>
-            <span class="metric-value">13년</span>
-            <span class="metric-label">심리·헬스케어 커리어</span>
-          </div>
-          <div>
-            <span class="metric-value">1,573개</span>
-            <span class="metric-label">서비스 추천용 메타데이터 설계</span>
-          </div>
-          <div>
-            <span class="metric-value">33.5%</span>
-            <span class="metric-label">시니어 인지훈련 사용량 증가</span>
-          </div>
-        </aside>
-      </section>
+<!-- Pretendard -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 
-      <section class="section" id="why">
-        <div class="section-heading">
-          <p class="eyebrow">Why Me</p>
-          <h2>헬스케어 서비스가 어려워지는 지점을 이해합니다</h2>
-          <p>
-            현장 언어로 존재하던 감정, 통증, 인지, 회복의 문제를 서비스가 다룰 수
-            있는 구조로 바꾸는 데 강점이 있습니다.
-          </p>
-        </div>
-        <div class="reason-grid">
-          <article class="card reason-card">
-            <span class="card-number">01</span>
-            <h3>임상 현장을 이해하는 기획자</h3>
-            <p>
-              8년간 심리상담·예술치료 현장에서 발달장애 아동부터 치매 노인까지
-              다양한 사용자의 정서와 행동 맥락을 관찰하고 개입했습니다.
-            </p>
-          </article>
-          <article class="card reason-card">
-            <span class="card-number">02</span>
-            <h3>복잡한 지식을 구조화하는 기획자</h3>
-            <p>
-              의료진의 파편화된 임상 지식과 사용자 페인포인트를 콘텐츠 DB,
-              메타데이터, 추천 로직으로 전환해 서비스 운영 기반을 설계했습니다.
-            </p>
-          </article>
-          <article class="card reason-card">
-            <span class="card-number">03</span>
-            <h3>실행과 성과를 만드는 기획자</h3>
-            <p>
-              시니어 인지훈련 콘텐츠 론칭, 147건의 QA 개선, B2G 유료화 전환 기여
-              등 기획이 실제 운영 지표와 사업 성과로 이어지게 만들었습니다.
-            </p>
-          </article>
-        </div>
-      </section>
+<!-- GSAP + ScrollTrigger -->
+<script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
-      <section class="section process-section" id="process">
-        <div class="section-heading narrow">
-          <p class="eyebrow">Signature Strength</p>
-          <h2>사람 이해를 서비스 구조로 바꾸는 방식</h2>
-        </div>
-        <ol class="process-list">
-          <li>
-            <span>사람 이해</span>
-            <p>감정, 인지 상태, 통증, 행동 장벽을 정성적으로 읽습니다.</p>
-          </li>
-          <li>
-            <span>문제 정의</span>
-            <p>사용자 어려움과 운영 병목을 서비스 과제로 좁힙니다.</p>
-          </li>
-          <li>
-            <span>구조화</span>
-            <p>콘텐츠, 데이터, 메타데이터, 추천 기준으로 설계합니다.</p>
-          </li>
-          <li>
-            <span>UX 설계</span>
-            <p>화면 흐름, 예외 케이스, 피드백 구조를 명세화합니다.</p>
-          </li>
-          <li>
-            <span>검증과 개선</span>
-            <p>QA와 현장 피드백을 통해 출시 전 위험을 줄입니다.</p>
-          </li>
-          <li>
-            <span>성과 연결</span>
-            <p>참여도, 운영 효율, 사업화 가능성으로 결과를 확인합니다.</p>
-          </li>
-        </ol>
-      </section>
+<style>
+  /* === DESIGN TOKENS ============================================ */
+  :root {
+    --bg: #0A0A0A;
+    --bg-alt: #111111;
+    --bg-card: #161616;
+    --text-primary: #F0F0F0;
+    --text-secondary: #888888;
+    --text-tertiary: #555555;
+    --accent: #A855F7;
+    --accent-2: #A855F7;
+    --border: #222222;
+    --border-soft: #1a1a1a;
+    --grid-line: rgba(240,240,240,0.04);
+  }
 
-      <section class="section" id="projects">
-        <div class="section-heading">
-          <p class="eyebrow">Featured Projects</p>
-          <h2>헬스케어 도메인에서 만든 서비스 기획 성과</h2>
-          <p>
-            시니어 케어, 재활, AI 돌봄, 마음건강 서비스까지 사용자의 상태 변화가
-            필요한 영역을 다뤄왔습니다.
-          </p>
-        </div>
-        <div class="project-grid">
-          <article class="card project-card">
-            <div class="project-meta">
-              <span>B2G · Senior Care</span>
-              <strong>인지훈련 콘텐츠</strong>
-            </div>
-            <h3>보건소 치매예방교실 게임형 인지훈련 콘텐츠 7종</h3>
-            <dl>
-              <div>
-                <dt>문제</dt>
-                <dd>시니어 타깃의 자발적 참여율을 높일 수 있는 몰입형 콘텐츠 필요</dd>
-              </div>
-              <div>
-                <dt>역할</dt>
-                <dd>5대 인지 영역 기반 게임 로직, 기능명세, 화면 흐름 설계</dd>
-              </div>
-              <div>
-                <dt>성과</dt>
-                <dd>147건 QA 개선, 1인당 사용량 33.5% 증가, B2G 유료화 전환 기여</dd>
-              </div>
-            </dl>
-          </article>
+  /* === RESET & BASE ============================================= */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 
-          <article class="card project-card">
-            <div class="project-meta">
-              <span>B2B2C · Rehab</span>
-              <strong>따뜻(Ttatteut)</strong>
-            </div>
-            <h3>수술 환자 맞춤형 재활 서비스 콘텐츠 DB 및 추천 로직</h3>
-            <dl>
-              <div>
-                <dt>문제</dt>
-                <dd>종이 가이드 중심의 재활 안내와 수동 콘텐츠 운영 리소스 과다</dd>
-              </div>
-              <div>
-                <dt>역할</dt>
-                <dd>511종 운동 데이터, 15개 카테고리, 1,573개 메타데이터 구조화</dd>
-              </div>
-              <div>
-                <dt>성과</dt>
-                <dd>10종 질환별 자동 추천 기반 완성, 신규 프로토콜 구성 시간 80% 이상 단축</dd>
-              </div>
-            </dl>
-          </article>
+  html, body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-feature-settings: 'ss03', 'ss04';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
 
-          <article class="card project-card">
-            <div class="project-meta">
-              <span>AI Care · Mental Health</span>
-              <strong>감정 분류</strong>
-            </div>
-            <h3>독거노인 AI 돌봄 서비스 감정 분류 및 현장 개입 프로세스</h3>
-            <dl>
-              <div>
-                <dt>문제</dt>
-                <dd>일상 발화 속 심리적 개입이 필요한 고위험군 선별 기준 부재</dd>
-              </div>
-              <div>
-                <dt>역할</dt>
-                <dd>감정 단어 분류 기준, 위험 발화 임계점, 케어매니저 대응 매뉴얼 설계</dd>
-              </div>
-              <div>
-                <dt>성과</dt>
-                <dd>고위험군 54명 조기 발견 및 전문 심리상담 연계</dd>
-              </div>
-            </dl>
-          </article>
+  body {
+    cursor: none;
+    min-height: 100vh;
+    position: relative;
+  }
 
-          <article class="card project-card">
-            <div class="project-meta">
-              <span>Generative AI · Side Project</span>
-              <strong>비춤</strong>
-            </div>
-            <h3>생성형 AI 기반 심리학적 꿈 분석 서비스</h3>
-            <dl>
-              <div>
-                <dt>문제</dt>
-                <dd>기존 꿈 해몽 서비스의 단정적 라벨링과 낮은 자기 탐색 가치</dd>
-              </div>
-              <div>
-                <dt>역할</dt>
-                <dd>5단계 리포트 구조, 상담적 질문 중심 톤앤매너, 환각 제어 프롬프트 설계</dd>
-              </div>
-              <div>
-                <dt>성과</dt>
-                <dd>3개월 내 프로토타입 론칭, 1,001건 입력 데이터, 96% 긍정 응답</dd>
-              </div>
-            </dl>
-          </article>
-        </div>
-      </section>
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 
-      <section class="section narrative-section">
-        <div class="narrative-layout">
-          <div class="section-heading">
-            <p class="eyebrow">Career Narrative</p>
-            <h2>현장 경험에서 서비스 기획으로 확장된 커리어</h2>
-          </div>
-          <div class="timeline" aria-label="경력 흐름">
-            <article>
-              <span>2012 - 2019</span>
-              <h3>오프라인 임상 현장</h3>
-              <p>심리상담과 예술치료 현장에서 사용자 상태를 관찰하고 개입하는 경험을 쌓았습니다.</p>
-            </article>
-            <article>
-              <span>2019 - 2021</span>
-              <h3>AI 돌봄 서비스</h3>
-              <p>시니어 발화 데이터와 현장 대응 프로세스를 연결하며 정성적 신호를 기준화했습니다.</p>
-            </article>
-            <article>
-              <span>2021 - 현재</span>
-              <h3>디지털 헬스케어 PM</h3>
-              <p>인지훈련, 재활, 마음건강 콘텐츠를 서비스 로직과 운영 가능한 시스템으로 설계했습니다.</p>
-            </article>
-            <article>
-              <span>2025 - 현재</span>
-              <h3>AI 심리 서비스 실험</h3>
-              <p>생성형 AI가 심리학적 자기 탐색을 돕도록 리포트 구조와 프롬프트를 기획했습니다.</p>
-            </article>
-          </div>
-        </div>
-      </section>
+  ::selection {
+    background: var(--accent);
+    color: #000;
+  }
 
-      <section class="section" id="skills">
-        <div class="section-heading narrow">
-          <p class="eyebrow">Skills</p>
-          <h2>기획 산출물로 말하는 실무 역량</h2>
-        </div>
-        <div class="skill-grid">
-          <article class="skill-item">
-            <h3>Service Planning</h3>
-            <p>기능명세서, UX 플로우, 화면 흐름, QA, 예외 케이스 설계</p>
-          </article>
-          <article class="skill-item">
-            <h3>Healthcare Content Strategy</h3>
-            <p>시니어 인지훈련, 재활교육, 마음건강 콘텐츠 구조화</p>
-          </article>
-          <article class="skill-item">
-            <h3>Data Structuring</h3>
-            <p>콘텐츠 DB, 메타데이터, 추천 로직, 분류 기준 설계</p>
-          </article>
-          <article class="skill-item">
-            <h3>User Research</h3>
-            <p>인터뷰, FGI, 심리·행동 장벽 분석, 현장 피드백 반영</p>
-          </article>
-          <article class="skill-item">
-            <h3>Collaboration</h3>
-            <p>의료진, 개발자, 디자이너, 보건소, 외주 개발사 커뮤니케이션</p>
-          </article>
-          <article class="skill-item">
-            <h3>Tools</h3>
-            <p>Figma, Notion, Slack, Google Workspace, Flowchart</p>
-          </article>
-        </div>
-      </section>
+  /* === GHOST GRID OVERLAY ======================================= */
+  .ghost-grid {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image:
+      repeating-linear-gradient(0deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 80px),
+      repeating-linear-gradient(90deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 80px);
+    opacity: 0.6;
+    mix-blend-mode: screen;
+  }
 
-      <section class="closing">
+  /* === PROGRESS BAR ============================================== */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--accent);
+    z-index: 100;
+    box-shadow: 0 0 12px var(--accent);
+  }
+
+  /* === CUSTOM CURSOR ============================================ */
+  .cursor-dot,
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+  }
+  .cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    transition: background 0.2s, transform 0.2s;
+  }
+  .cursor-ring {
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid color-mix(in oklab, var(--accent), transparent 50%);
+    transition: width 0.2s, height 0.2s, background 0.2s, border-color 0.2s;
+  }
+  body.cursor-hover .cursor-ring {
+    width: 52px;
+    height: 52px;
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  body.cursor-hover .cursor-dot {
+    background: #000;
+  }
+
+  /* === LAYOUT GRID ============================================== */
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* === TOP BAR / FOOTER UTILITY ================================= */
+  .topbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 28px 80px;
+    z-index: 50;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    mix-blend-mode: difference;
+  }
+  .topbar .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .topbar .pill::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%     { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  /* === HERO ===================================================== */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 160px 80px 60px;
+    overflow: hidden;
+  }
+  .hero-name-block {
+    margin: auto 0;  /* vertical center within remaining space */
+  }
+  .hero-bottom-row {
+    margin-top: auto; /* sticks to bottom in flex flow */
+  }
+
+  .hero-top {
+    position: absolute;
+    top: 80px; left: 80px; right: 80px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .hero-top .role {
+    color: var(--accent);
+  }
+  .hero-top .year {
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    max-width: 360px;
+    text-align: right;
+    line-height: 1.5;
+  }
+
+  .hero-name {
+    font-weight: 900;
+    line-height: 0.86;
+    letter-spacing: -0.05em;
+    font-size: clamp(64px, 11.5vw, 160px);
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+  .hero-name .line {
+    overflow: hidden;
+    display: block;
+  }
+  .hero-name .line .inner {
+    display: block;
+    transform: translateY(100%);
+  }
+  .hero-name .line.kor {
+    font-size: 0.62em;
+    letter-spacing: -0.04em;
+    margin-top: 0.08em;
+    color: var(--text-primary);
+  }
+  .hero-name .line.kor .inner {
+    color: var(--text-secondary);
+  }
+  .hero-name .line.kor .accent {
+    color: var(--accent);
+  }
+  .hero-name .dot {
+    display: inline-block;
+    width: 0.16em; height: 0.16em;
+    border-radius: 50%;
+    background: var(--accent);
+    vertical-align: middle;
+    margin: 0 0.05em 0.18em;
+  }
+
+  /* === POSITIONING HEADLINE ===================================== */
+  .hero-positioning {
+    margin-top: 32px;
+    max-width: 920px;
+    font-size: clamp(20px, 2vw, 28px);
+    font-weight: 600;
+    line-height: 1.45;
+    letter-spacing: -0.018em;
+    color: var(--text-primary);
+    overflow: hidden;
+  }
+  .hero-positioning .ph-inner { display: block; }
+  .hero-positioning .accent { color: var(--accent); font-weight: 700; }
+  .hero-positioning .pipe {
+    display: inline-block;
+    width: 1px; height: 0.9em;
+    background: var(--accent);
+    vertical-align: -0.05em;
+    margin: 0 0.5em;
+  }
+
+  .hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 60px;
+    padding-top: 60px;
+  }
+  .hero-bio {
+    max-width: 420px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+  .hero-bio strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .hero-scroll {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+  }
+  .hero-scroll .arrow {
+    display: inline-block;
+    width: 36px; height: 1px;
+    background: var(--accent);
+    position: relative;
+  }
+  .hero-scroll .arrow::after {
+    content: '';
+    position: absolute;
+    right: 0; top: -3px;
+    width: 7px; height: 7px;
+    border-right: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+    transform: rotate(45deg);
+  }
+
+  /* === MARQUEE ================================================== */
+  .marquee {
+    position: relative;
+    overflow: hidden;
+    padding: 22px 0;
+    background: var(--accent);
+    color: #000;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    z-index: 5;
+  }
+  .marquee .track {
+    display: flex;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+    gap: 56px;
+    padding-left: 56px;
+  }
+  .marquee .item {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 56px;
+  }
+  .marquee .star {
+    color: #000;
+    font-size: 16px;
+    transform: translateY(-1px);
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  /* Outline marquee variant */
+  body[data-marquee="outline"] .marquee {
+    background: var(--bg);
+    color: var(--accent);
+  }
+  body[data-marquee="outline"] .marquee .star { color: var(--accent); }
+
+  /* === SECTION CHROME =========================================== */
+  .section {
+    padding: 160px 80px 120px;
+    position: relative;
+    z-index: 2;
+  }
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: end;
+    margin-bottom: 100px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 30px;
+  }
+  .section-display {
+    font-size: clamp(56px, 7.2vw, 100px);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+    margin-top: 28px;
+  }
+  .section-display .gap { display: inline-block; width: 0.18em; }
+  .section-display .gap-sm { display: inline-block; width: 0.08em; }
+  .section-display .ko {
+    display: block;
+    font-size: 0.32em;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary);
+    margin-top: 0.6em;
+    text-transform: none;
+  }
+  .section-intro {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text-secondary);
+    max-width: 480px;
+    justify-self: end;
+    padding-bottom: 8px;
+  }
+
+  /* === 01 ABOUT ================================================= */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-quote {
+    border-left: 3px solid var(--accent);
+    padding: 12px 0 12px 28px;
+    font-size: 22px;
+    line-height: 1.55;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  .about-quote em {
+    color: var(--accent);
+    font-style: normal;
+    font-weight: 700;
+  }
+  .about-quote .meta {
+    display: block;
+    margin-top: 24px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+  }
+  .about-body {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text-secondary);
+    margin-bottom: 48px;
+  }
+  .about-body p + p { margin-top: 18px; }
+  .about-body strong { color: var(--text-primary); font-weight: 600; }
+
+  .strength-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .strength-card {
+    background: var(--bg-card);
+    padding: 36px 32px;
+    position: relative;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: background 0.4s ease;
+  }
+  .strength-card:hover { background: #1d1d1d; }
+  .strength-card .num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+  }
+  .strength-card .title {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-top: 12px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .strength-card .desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-top: 16px;
+  }
+  .strength-card .corner {
+    position: absolute;
+    top: 14px; right: 16px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    letter-spacing: 0.15em;
+  }
+
+  /* === 02 WORKS ================================================= */
+  .works-rows {
+    border-top: 1px solid var(--border);
+  }
+  .work-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 80px 1fr 1.4fr auto;
+    gap: 48px;
+    align-items: center;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    cursor: none;
+  }
+  .work-row::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.45s cubic-bezier(.45,.05,.2,1);
+    z-index: 0;
+  }
+  .work-row:hover::before { transform: scaleX(1); }
+  .work-row > * { position: relative; z-index: 1; transition: color 0.3s; }
+  .work-row:hover > * { color: #000 !important; }
+  .work-row:hover .wr-arrow { transform: translateX(8px); }
+
+  .wr-num {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+  }
+  .wr-title {
+    font-size: 38px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--text-primary);
+  }
+  .wr-title .sub {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: var(--text-secondary);
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+  .wr-meta {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 460px;
+  }
+  .wr-meta .tag {
+    display: inline-block;
+    padding: 3px 9px;
+    margin: 0 6px 6px 0;
+    font-size: 10px;
+    font-weight: 700;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .work-row:hover .wr-meta .tag {
+    border-color: #000;
+    color: #000;
+  }
+  .wr-arrow {
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--text-primary);
+    transition: transform 0.4s;
+  }
+
+  /* KPI spotlight block */
+  .kpi-block {
+    margin-top: 120px;
+    padding: 80px 60px;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 60px;
+    position: relative;
+  }
+  .kpi-block::before {
+    content: 'KPI · SPOTLIGHT';
+    position: absolute;
+    top: -10px; left: 24px;
+    background: var(--bg);
+    padding: 0 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+  }
+  .kpi-item .num {
+    font-size: clamp(54px, 6vw, 92px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
+  }
+  .kpi-item .num .unit {
+    font-size: 0.4em;
+    color: var(--accent);
+    margin-left: 4px;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+  .kpi-item .num .plus {
+    color: var(--accent);
+    font-weight: 900;
+  }
+  .kpi-item .label {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    letter-spacing: -0.01em;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* === 03 EXPERIENCE ============================================ */
+  .exp-list {
+    border-top: 1px solid var(--border);
+  }
+  .exp-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 2fr;
+    gap: 48px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .exp-date {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+  }
+  .exp-role {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+  .exp-role .org {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+  .exp-bullets {
+    font-size: 14px;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    list-style: none;
+  }
+  .exp-bullets li {
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .exp-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* Education sub-section (same format) */
+  .edu-block { margin-top: 40px; }
+  .edu-block .subhead {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+
+  /* === 04 CONTACT =============================================== */
+  .contact-section {
+    padding: 200px 80px 120px;
+    position: relative;
+    z-index: 2;
+  }
+  .contact-head {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+  .contact-mega {
+    font-size: clamp(80px, 14vw, 200px);
+    font-weight: 900;
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+  }
+  .contact-mega .line { display: block; overflow: hidden; }
+  .contact-mega .accent { color: var(--accent); }
+  .contact-mega .ko {
+    display: block;
+    margin-top: 0.18em;
+    font-size: 0.32em;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text-secondary);
+  }
+  .contact-mega .ko .accent { color: var(--accent); }
+
+  .contact-grid {
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+  }
+  .contact-text {
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    max-width: 480px;
+  }
+  .contact-text strong { color: var(--text-primary); font-weight: 600; }
+
+  .contact-cta-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 24px;
+  }
+  .contact-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 32px;
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+    will-change: transform;
+    border-radius: 999px;
+  }
+  .contact-cta:hover {
+    background: var(--accent);
+    color: #000;
+  }
+  .contact-cta .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    transition: background 0.3s;
+  }
+  .contact-cta:hover .dot { background: #000; }
+
+  .contact-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    margin-top: 100px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+  .contact-meta .key {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .contact-meta .val {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  /* === FOOTER =================================================== */
+  .site-footer {
+    padding: 40px 80px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* === TWEAKS PANEL ============================================= */
+  .tweaks-panel {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    width: 280px;
+    background: rgba(20,20,20,0.96);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 200;
+    padding: 18px;
+    display: none;
+    color: var(--text-primary);
+    cursor: auto;
+    font-family: 'Pretendard', sans-serif;
+  }
+  .tweaks-panel.open { display: block; }
+  .tweaks-panel .tp-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .tweaks-panel .tp-title {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .tweaks-panel .tp-close {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 11px;
+    width: 22px; height: 22px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+  }
+  .tweaks-panel .tp-section {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+  }
+  .tweaks-panel .tp-section:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+  .tweaks-panel .tp-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  .tweaks-panel .tp-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tweaks-panel .tp-opt {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 8px 6px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tweaks-panel .tp-opt[aria-selected="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+  }
+  .tweaks-panel .tp-opt:hover { color: var(--text-primary); }
+  .tweaks-panel .swatch-row { display: flex; gap: 8px; }
+  .tweaks-panel .swatch {
+    flex: 1;
+    height: 32px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.15s;
+  }
+  .tweaks-panel .swatch:hover { transform: scale(1.05); }
+  .tweaks-panel .swatch[aria-selected="true"]::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1.5px solid #000;
+  }
+
+  /* === HERO LAYOUT VARIATIONS =================================== */
+  /* default: brutal (left-aligned massive) */
+  body[data-hero="centered"] .hero { align-items: center; text-align: center; }
+  body[data-hero="centered"] .hero-name { text-align: center; }
+  body[data-hero="centered"] .hero-bottom {
+    justify-content: center;
+    text-align: center;
+  }
+  body[data-hero="centered"] .hero-bio { margin: 0 auto; }
+  body[data-hero="centered"] .hero-scroll {
+    position: absolute; right: 80px; bottom: 60px;
+  }
+
+  body[data-hero="asym"] .hero-name {
+    padding-left: 30%;
+  }
+  body[data-hero="asym"] .hero-name .line:nth-child(2) { padding-left: 8%; }
+  body[data-hero="asym"] .hero-name .line:nth-child(3) { padding-left: 14%; }
+
+  /* === CASE ROW EXTRAS ========================================== */
+  .case-badge {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 4px 10px;
+    border: 1px solid var(--accent);
+    background: rgba(0,0,0,0);
+  }
+  .work-row:hover .case-badge {
+    background: #000;
+    color: var(--accent);
+    border-color: #000;
+  }
+  .side-tag {
+    display: inline-block;
+    margin-left: 10px;
+    padding: 2px 8px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    color: var(--bg);
+    background: var(--accent);
+    vertical-align: 2px;
+  }
+
+  /* === THUMB FOLLOWER =========================================== */
+  .thumb-follower {
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 80;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 360px;
+    opacity: 0;
+    transform: translate(-9999px,-9999px) scale(0.96);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .thumb-follower.is-visible { opacity: 1; }
+  .thumb-follower .thumb {
+    aspect-ratio: 16/10;
+    background: var(--bg-card) center/cover no-repeat;
+    border: 1px solid var(--accent);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+  }
+  @media (max-width: 900px) {
+    .thumb-follower { display: none !important; }
+    .case-badge { font-size: 9px; padding: 3px 8px; }
+  }
+
+  /* === RESPONSIVE (<=768) ====================================== */
+  @media (max-width: 900px) {
+    .container, .topbar, .hero, .section, .contact-section, .site-footer { padding-left: 24px; padding-right: 24px; }
+    .topbar { padding-top: 20px; padding-bottom: 20px; }
+    .hero { padding-top: 100px; padding-bottom: 80px; }
+    .hero-top { left: 24px; right: 24px; top: 70px; }
+    .hero-bottom { left: 24px; right: 24px; bottom: 30px; flex-direction: column; align-items: flex-start; gap: 30px; }
+    .section { padding-top: 100px; padding-bottom: 80px; }
+    .section-head { grid-template-columns: 1fr; gap: 30px; margin-bottom: 60px; }
+    .section-intro { justify-self: start; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .strength-grid { grid-template-columns: 1fr; }
+    .work-row { grid-template-columns: 60px 1fr; gap: 16px; padding: 28px 0; }
+    .wr-meta, .wr-arrow { grid-column: 2; }
+    .wr-title { font-size: 28px; }
+    .kpi-block { grid-template-columns: 1fr 1fr; gap: 40px; padding: 50px 30px; }
+    .exp-row { grid-template-columns: 1fr; gap: 14px; padding: 32px 0; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .contact-meta { grid-template-columns: 1fr; gap: 24px; }
+    .site-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
+    body { cursor: auto; }
+    .cursor-dot, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body data-accent="purple" data-hero="brutal" data-marquee="solid">
+
+  <!-- ghost grid + progress + cursor -->
+  <div class="ghost-grid" aria-hidden="true"></div>
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+  <!-- thumb follower (hovering preview for case rows) -->
+  <div class="thumb-follower" id="thumbFollower" aria-hidden="true">
+    <div class="thumb" data-slot="0"></div>
+    <div class="thumb" data-slot="1"></div>
+  </div>
+
+  <!-- top bar -->
+  <header class="topbar">
+    <span class="pill">PORTFOLIO · 2026</span>
+    <nav class="topbar-nav">
+      <a href="#about" data-hover>ABOUT</a>
+      &nbsp;·&nbsp;
+      <a href="#works" data-hover>WORKS</a>
+      &nbsp;·&nbsp;
+      <a href="#experience" data-hover>EXPERIENCE</a>
+      &nbsp;·&nbsp;
+      <a href="#contact" data-hover>CONTACT</a>
+    </nav>
+  </header>
+
+  <!-- ============== HERO ============== -->
+  <section class="hero" id="home" data-screen-label="00 Hero">
+    <div class="hero-top">
+      <span class="role">DIGITAL HEALTHCARE&nbsp;·&nbsp;SERVICE PLANNER</span>
+      <span class="year">Healthcare Data · AI Coaching · Service Planning Portfolio</span>
+    </div>
+
+    <div class="hero-name-block">
+    <h1 class="hero-name">
+      <span class="line"><span class="inner">YI HYEONJU</span></span>
+      <span class="line"><span class="inner" style="font-size: 20px">
+</span></span>
+      <span class="line kor"><span class="inner">이현주 <span class="accent">·</span> 헬스케어 기획자</span></span>
+    </h1>
+    </div>
+
+    <div class="hero-bottom-row">
+    <p class="hero-positioning">
+      <span class="ph-inner"><span class="accent">심리상담사</span> 출신 <span class="accent">헬스케어 서비스 기획자</span>.</span>
+      <span class="ph-inner">임상 직관을 <em style="font-style:normal;color:var(--text-primary);font-weight:700;">데이터·정책·AI 콘텐츠</em>로 번역합니다.</span>
+    </p>
+
+    <div class="hero-bottom">
+      <p class="hero-bio">
+        재활·인지건강·시니어 케어·AI 심리 분석 영역에서 <strong>B2B2C·B2G 디지털 헬스케어 서비스의 구축과 고도화</strong>를 수행하며, 임상·데이터·정책을 한 판에 잇는 기획자가 필요한 곳을 찾고 있습니다.
+      </p>
+      <a class="hero-scroll" href="#about" data-hover>
+        SCROLL <span class="arrow"></span>
+      </a>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============== MARQUEE ============== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <span class="item">데이터 구조화 <span class="star">✦</span> AI 코칭 <span class="star">✦</span> PRD · UX FLOW <span class="star">✦</span> 프롬프트 엔지니어링 <span class="star">✦</span> QA · 운영 고도화 <span class="star">✦</span> B2B2C · B2G <span class="star">✦</span> 위험군 선별 <span class="star">✦</span> 헬스케어 PM <span class="star">✦</span></span>
+      <span class="item" aria-hidden="true">데이터 구조화 <span class="star">✦</span> AI 코칭 <span class="star">✦</span> PRD · UX FLOW <span class="star">✦</span> 프롬프트 엔지니어링 <span class="star">✦</span> QA · 운영 고도화 <span class="star">✦</span> B2B2C · B2G <span class="star">✦</span> 위험군 선별 <span class="star">✦</span> 헬스케어 PM <span class="star">✦</span></span>
+    </div>
+  </div>
+
+  <!-- ============== 01 ABOUT ============== -->
+  <section class="section" id="about" data-screen-label="01 About">
+    <div class="container">
+      <div class="section-head">
         <div>
-          <p class="eyebrow">Let&apos;s Build Better Healthcare</p>
-          <h2>헬스케어 서비스가 사람의 변화를 만들어야 한다면, 저는 그 변화를 설계 가능한 구조로 바꿉니다.</h2>
+          <div class="section-label">01 — ABOUT</div>
+          <h2 class="section-display reveal-h">
+            AB<span class="gap-sm"></span>OU<span class="gap-sm"></span>T<span class="dot">.</span>
+            <span class="ko">소 개 · 일하는 방식</span>
+          </h2>
         </div>
-        <div class="closing-actions">
-          <a class="button primary" href="mailto:creativehyeonju@gmail.com?subject=헬스케어%20서비스%20기획자%20이현주님께%20연락드립니다">이메일 보내기</a>
-          <a class="button secondary light" href="#projects">프로젝트 다시 보기</a>
+        <p class="section-intro reveal-p">
+          임상심리상담 출신으로 현장에서 사람과 데이터를 다루고, 그 경험을 디지털 헬스케어 서비스로 번역해온 기획자입니다. 단순 헬스케어 PM이 아닌, 임상·정책·AI를 한 사람의 손으로 잇는 기획자가 필요한 곳을 찾고 있습니다.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <blockquote class="about-quote reveal-p">
+          “임상심리상담 현장에서 <em>사람의 언어</em>를 읽고, IT 헬스케어 서비스에서 <em>데이터·정책·AI 콘텐츠</em>로 번역해왔습니다. 임상은 더 사람을 이해하게 했고, 기술은 더 널리 닿게 했습니다.”
+          <span class="meta">— POSITIONING NARRATIVE</span>
+        </blockquote>
+
+        <div>
+          <div class="about-body reveal-p">
+            <p>재활, 인지건강, 시니어 케어, AI 심리 분석 영역에서 <strong>비정형 헬스케어 데이터를 사용자 행동으로 연결하는 서비스 구조</strong>를 설계해왔습니다.</p>
+            <p>임상심리상담사로 활동하며 대학에서 외래교수로 강의를 이어가고 있으며, AI 헬스 서비스를 직접 론칭·운영하고 있습니다. <strong>임상·B2G·AI를 동시에 개척해본 소수의 기획자</strong>로서, 헬스케어 서비스의 정확도·신뢰도·사용자 행동 전환이 중요한 곳에서 강점을 발휘합니다.</p>
+          </div>
+
+          <div class="strength-grid">
+            <div class="strength-card reveal-card">
+              <div>
+                <div class="num">01</div>
+                <div class="title">임상 · 데이터<br/>브릿지 역할</div>
+                <div class="desc">심리상담 현장과 데이터 기반 서비스 기획의 양쪽 언어를 모두 이해. 사용자 경험과 시스템 메타데이터를 하나의 구조로 번역.</div>
+              </div>
+              <div class="corner">/ BRIDGE</div>
+            </div>
+            <div class="strength-card reveal-card">
+              <div>
+                <div class="num">02</div>
+                <div class="title">헬스케어<br/>데이터 구조화</div>
+                <div class="desc">재활운동·인지훈련·시니어 발화 등 비정형 정보를 추천 로직과 운영에 활용 가능한 메타데이터 구조로 정리.</div>
+              </div>
+              <div class="corner">/ DATA</div>
+            </div>
+            <div class="strength-card reveal-card">
+              <div>
+                <div class="num">03</div>
+                <div class="title">AI 콘텐츠<br/>안전성 설계</div>
+                <div class="desc">생성형 AI의 단정·환각 응답을 줄이는 프롬프트 구조와 코칭형 응답 IA. 심리·건강 콘텐츠의 심리적 안전성을 다루는 도메인 감각.</div>
+              </div>
+              <div class="corner">/ AI</div>
+            </div>
+            <div class="strength-card reveal-card">
+              <div>
+                <div class="num">04</div>
+                <div class="title">이해관계자<br/>정렬 · 운영 고도화</div>
+                <div class="desc">의료진·케어매니저·해외 개발팀·보건소·상담 전문가—다양한 이해관계자를 공통 기준으로 정렬하는 PRD·플로우·QA·정책 설계.</div>
+              </div>
+              <div class="corner">/ OPS</div>
+            </div>
+          </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
+  </section>
 
-    <footer class="site-footer">
-      <p>© 2026 Hyunju Lee. Healthcare Service Planner.</p>
-      <a href="mailto:creativehyeonju@gmail.com">creativehyeonju@gmail.com</a>
-    </footer>
+  <!-- ============== 02 WORKS ============== -->
+  <section class="section" id="works" data-screen-label="02 Works">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-label">02 — WORKS</div>
+          <h2 class="section-display reveal-h">
+            WOR<span class="gap-sm"></span>KS<span class="dot">.</span>
+            <span class="ko">주 요 케이스 · 0 4 건</span>
+          </h2>
+        </div>
+        <p class="section-intro reveal-p">
+          비정형 도메인 지식을 데이터 구조와 운영 프로세스로 전환한 4개 케이스. 각 프로젝트는 기획·콘텐츠·QA·운영을 가로지르는 전주기 기여로 진행되었습니다.
+        </p>
+      </div>
 
-    <script src="script.js"></script>
-  </body>
+      <div class="works-rows">
+
+        <a class="work-row reveal-row case-row" href="case-1.html" data-hover data-thumbs='["assets/case-1-thumb-1.svg","assets/case-1-thumb-2.svg"]'>
+          <div class="wr-num">— 01</div>
+          <div class="wr-title">
+            따뜻.
+            <span class="sub">수술 후 재활 · 콘텐츠 DB</span>
+            <span class="case-badge">CASE STUDY · 산출물 보기 →</span>
+          </div>
+          <div class="wr-meta">
+            제휴 병원 기반 수술 환자 맞춤형 재활 콘텐츠 DB·추천 로직 구조화. 의료진 인터뷰로 511종 콘텐츠를 수집, 15개 카테고리·1,573개 메타데이터로 정리.
+            <br/>
+            <span class="tag">콘텐츠 기획</span><span class="tag">DB 구조화</span><span class="tag">프로토콜 설계</span><span class="tag">다학제 검토</span>
+          </div>
+          <div class="wr-arrow">→</div>
+        </a>
+
+        <a class="work-row reveal-row case-row" href="case-2.html" data-hover data-thumbs='["assets/case-2-thumb-1.svg","assets/case-2-thumb-2.svg"]'>
+          <div class="wr-num">— 02</div>
+          <div class="wr-title">
+            인공지능 돌봄.
+            <span class="sub">SK텔레콤 행복커뮤니티 · 감정 분류</span>
+            <span class="case-badge">CASE STUDY · 백서 인용 →</span>
+          </div>
+          <div class="wr-meta">
+            독거노인 AI 스피커 발화 데이터의 감정 분류·위험군 선별 기준 설계. 현장 응대 매뉴얼·상담 연계 프로세스 구축· <strong>백서 본문 분석 인용 2회 · 사용자 인터뷰 4건 직접 수행.</strong>
+            <br/>
+            <span class="tag">임상 심리상담</span><span class="tag">감정 분류</span><span class="tag">현장 운영</span><span class="tag">백서</span>
+          </div>
+          <div class="wr-arrow">→</div>
+        </a>
+
+        <a class="work-row reveal-row case-row" href="case-3.html" data-hover data-thumbs='["assets/case-3-thumb-1.svg","assets/case-3-thumb-2.svg"]'>
+          <div class="wr-num">— 03</div>
+          <div class="wr-title">
+            비춤.
+            <span class="sub">TEAM KNOCKKNOCK · AI 꿈분석</span>
+            <span class="case-badge">CASE STUDY · 산출물 보기 →</span>
+          </div>
+          <div class="wr-meta">
+            생성형 AI 기반 심리학적 꿈분석 서비스를 <strong>직접 기획·론칭·운영</strong>. 8단계 분석 엔진 파이프라인·프롬프트 6원칙으로 단정·환각 응답을 줄이고 자기탐색 코칭 구조로 전환.
+            <br/>
+            <span class="tag">AI 엔진 설계</span><span class="tag">프롬프트</span><span class="tag">직접 론칭</span><span class="tag">SIDE</span>
+          </div>
+          <div class="wr-arrow">→</div>
+        </a>
+
+        <a class="work-row reveal-row case-row" href="case-4.html" data-hover data-thumbs='["assets/spec.png","assets/flow.png"]'>
+          <div class="wr-num">— 04</div>
+          <div class="wr-title">
+            맬리.
+            <span class="sub">MELLY · B2G COGNITIVE TRAINING</span>
+            <span class="case-badge">CASE STUDY · 산출물 보기 →</span>
+          </div>
+          <div class="wr-meta">
+            보건소 치매예방교실 B2G 시범사업. 5대 인지 영역 기반 게임형 두뇌훈련 콘텐츠 7종 기획·QA. 플로우차트와 예외 케이스 문서 기반 협업으로 QA 단계에서 147건의 로직·사용성 이슈를 도출하고, 출시 전 주요 품질 리스크를 낮춤.
+            <br/>
+            <span class="tag">PM · 콘텐츠</span><span class="tag">글로벌 협업</span><span class="tag">QA</span><span class="tag">기능명세 · 플로우</span>
+          </div>
+          <div class="wr-arrow">→</div>
+        </a>
+
+      </div>
+
+      <!-- KPI Spotlight -->
+      <div class="kpi-block">
+        <div class="kpi-item">
+          <div class="num"><span class="count" data-to="2">0</span><span class="unit">회</span></div>
+          <div class="label"><strong style="color:var(--text-primary);font-weight:700;">백서 본문 분석 인용</strong><br/>· 「행복커뮤니티 인공지능 돌봄 백서」 2020.7</div>
+        </div>
+        <div class="kpi-item">
+          <div class="num"><span class="count" data-to="54">0</span><span class="unit">명</span></div>
+          <div class="label"><strong style="color:var(--text-primary);font-weight:700;">고위험군 조기 발견</strong><br/>· 전문 심리상담 연계 (AI 돌봄)</div>
+        </div>
+        <div class="kpi-item">
+          <div class="num"><span class="count" data-to="1001">0</span><span class="unit">건</span></div>
+          <div class="label"><strong style="color:var(--text-primary);font-weight:700;">AI 꿈분석 입력 데이터</strong><br/>· 직접 론칭·운영 중인 서비스 (비춤)</div>
+        </div>
+        <div class="kpi-item">
+          <div class="num"><span class="count" data-to="33.5" data-decimals="1">0</span><span class="unit">%↑</span></div>
+          <div class="label"><strong style="color:var(--text-primary);font-weight:700;">B2G 시니어 사용량</strong><br/>· 자율 사용자 1인당 전년 대비 (맬리)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== 03 EXPERIENCE ============== -->
+  <section class="section" id="experience" data-screen-label="03 Experience">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-label">03 — EXPERIENCE</div>
+          <h2 class="section-display reveal-h">
+            EXPE<span class="gap-sm"></span>RI<span class="gap-sm"></span>ENCE<span class="dot">.</span>
+            <span class="ko">경 력 · 프로젝트 타임라인</span>
+          </h2>
+        </div>
+        <p class="section-intro reveal-p">
+          헬스케어 도메인을 중심으로 콘텐츠·AI·B2G·시니어 케어를 가로지르는 풀스택 서비스 기획 경험. 각 프로젝트의 산출물은 데이터·문서·정책 단위로 정렬되어 있습니다.
+        </p>
+      </div>
+
+      <div class="exp-list">
+
+        <article class="exp-row reveal-row">
+          <div class="exp-date">2025 — NOW <span class="side-tag">SIDE</span></div>
+          <div class="exp-role">
+            AI 심리 콘텐츠 기획 · 프롬프트 엔지니어링
+            <span class="org">— 비춤 / 심리학적 AI 꿈 분석</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>생성형 AI 기반 꿈 분석 5단계 리포트 IA 설계 (요약 → 감정 → 상징 → 조언 → 탐색 질문)</li>
+            <li>단정적 표현·환각 응답을 줄이는 프롬프트 구조 및 응답 품질 검토 기준 정의</li>
+            <li>론칭 3개월 내 사용자 93명 / 꿈 입력 1,001건 확보 · 테스터 96% 긍정 응답</li>
+          </ul>
+        </article>
+
+        <article class="exp-row reveal-row">
+          <div class="exp-date">2024 — IN SERVICE</div>
+          <div class="exp-role">
+            서비스·콘텐츠 기획 PM · QA
+            <span class="org">— 맬리 / 보건소 치매예방교실 (B2G)</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>기억력·주의력·언어·문제해결·시공간 5대 인지 영역 기반 게임형 콘텐츠 7종 기획</li>
+            <li>해외(베트남) 개발팀과 기능명세·플로우차트 기반 협업 · QA 147건 이슈 도출·개선</li>
+            <li>론칭 후 자율 사용자 1인당 사용량 전년 대비 33.5% 증가 · 유료 운영 전환 레퍼런스 확보</li>
+          </ul>
+        </article>
+
+        <article class="exp-row reveal-row">
+          <div class="exp-date">2021 — 2023</div>
+          <div class="exp-role">
+            콘텐츠 기획 전담 · 재활 DB 구조화
+            <span class="org">— 따뜻 / 수술 후 재활 서비스</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>정형외과·재활의학과 전문의 협업으로 511종 재활운동 콘텐츠 수집·정제</li>
+            <li>사용자 노출 정보와 시스템 메타데이터(주동근·강도·적용시기·질환·수술단계)를 분리 설계</li>
+            <li>15개 카테고리 / 1,573개 메타데이터 항목 기반 질환별 재활 프로토콜 자동 추천 구조 마련</li>
+          </ul>
+        </article>
+
+        <article class="exp-row reveal-row">
+          <div class="exp-date">2019 — 2021</div>
+          <div class="exp-role">
+            AI 돌봄 감정 분류 기획 · 심리상담
+            <span class="org">— 인공지능 돌봄 서비스 / AI 스피커 독거노인 돌봄</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>독거노인 AI 스피커 발화 데이터의 감정 단어 분류 기준 및 위험군 선별 기준 정의</li>
+            <li>현장 ICT 케어매니저용 심리적 응대 매뉴얼·교육·수퍼비전 운영 (월 1회)</li>
+            <li>고위험군 54명 조기 발견 → 전문 심리상담으로 연계 · 인공지능 돌봄 서비스 백서 수록</li>
+          </ul>
+        </article>
+
+      </div>
+
+      <div class="edu-block">
+        <div class="subhead">— DOMAIN & EDUCATION</div>
+        <div class="exp-list" style="border-top:1px solid var(--border);">
+          <article class="exp-row reveal-row">
+            <div class="exp-date">CORE DOMAIN</div>
+            <div class="exp-role">
+              디지털 헬스케어 · AI 심리 · 시니어 케어
+              <span class="org">— B2B2C / B2G · FULL CYCLE</span>
+            </div>
+            <ul class="exp-bullets">
+              <li>건강정보 정확도·신뢰도, AI 응답 품질, 사용자 행동 전환, 운영 안정화 영역 강점</li>
+              <li>전주기 건강관리 플랫폼의 검진 데이터 해석 · 위험도 안내 · 후속 행동 가이드 설계</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============== 04 CONTACT ============== -->
+  <section class="contact-section" id="contact" data-screen-label="04 Contact">
+    <div class="container">
+      <div class="contact-head">04 — CONTACT</div>
+
+      <h2 class="contact-mega">
+        <span class="line">LET'S</span>
+        <span class="line"><span class="accent">TALK.</span></span>
+        <span class="ko">함께 <span class="accent">이야기해요.</span></span>
+      </h2>
+
+      <div class="contact-grid">
+        <p class="contact-text">
+          <strong>전주기 건강관리 플랫폼의 데이터 구조 · AI 코칭 · UX flow · QA · 운영 고도화</strong>에 기여할 수 있는 기회를 찾고 있습니다.
+          헬스케어 도메인 기획, B2B2C / B2G 운영, AI 리포트 설계와 관련된 제안을 환영합니다.
+        </p>
+
+        <div class="contact-cta-wrap">
+          <a class="contact-cta magnetic" href="mailto:creativehyeonju@gmail.com" data-hover>
+            <span class="dot"></span>
+            EMAIL ME
+            <span style="font-weight:400;font-size:18px;">→</span>
+          </a>
+          <div style="font-size:11px; color: var(--text-tertiary); letter-spacing:0.18em; text-transform:uppercase;">
+            REPLIES WITHIN 48H · KST
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-meta">
+        <div>
+          <div class="key">— EMAIL</div>
+          <div class="val"><a href="mailto:creativehyeonju@gmail.com">creativehyeonju@gmail.com</a></div>
+        </div>
+        <div>
+          <div class="key">— LOCATION</div>
+          <div class="val">Seoul · Korea Standard Time</div>
+        </div>
+        <div>
+          <div class="key">— STATUS</div>
+          <div class="val">Open to opportunities · 2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div>© 2026 YI HYEONJU · DIGITAL HEALTHCARE PLANNER</div>
+    <div>BUILT WITH HTML · CSS · GSAP</div>
+  </footer>
+
+  <!-- ============== TWEAKS PANEL ============== -->
+  <aside class="tweaks-panel" id="tweaksPanel" aria-hidden="true">
+    <div class="tp-head">
+      <span class="tp-title">TWEAKS</span>
+      <button class="tp-close" id="tpClose" aria-label="Close">✕</button>
+    </div>
+
+    <div class="tp-section">
+      <div class="tp-label">ACCENT</div>
+      <div class="swatch-row" data-group="accent">
+        <button class="swatch" data-value="purple" style="background:#A855F7;" aria-selected="true" aria-label="Purple"></button>
+        <button class="swatch" data-value="neon"   style="background:#39FF14;" aria-label="Neon Green"></button>
+        <button class="swatch" data-value="amber"  style="background:#FF7A00;" aria-label="Amber"></button>
+        <button class="swatch" data-value="ice"    style="background:#5EE0FF;" aria-label="Ice"></button>
+      </div>
+    </div>
+
+    <div class="tp-section">
+      <div class="tp-label">HERO LAYOUT</div>
+      <div class="tp-row" data-group="hero">
+        <button class="tp-opt" data-value="brutal" aria-selected="true">BRUTAL</button>
+        <button class="tp-opt" data-value="centered">CENTER</button>
+        <button class="tp-opt" data-value="asym">ASYM</button>
+      </div>
+    </div>
+
+    <div class="tp-section">
+      <div class="tp-label">MARQUEE</div>
+      <div class="tp-row" data-group="marquee">
+        <button class="tp-opt" data-value="solid" aria-selected="true">SOLID</button>
+        <button class="tp-opt" data-value="outline">OUTLINE</button>
+      </div>
+    </div>
+
+    <div class="tp-section">
+      <div class="tp-label">NAME LEAD</div>
+      <div class="tp-row" data-group="name">
+        <button class="tp-opt" data-value="en" aria-selected="true">EN · KO</button>
+        <button class="tp-opt" data-value="ko">KO · EN</button>
+      </div>
+    </div>
+  </aside>
+
+<script>
+/* === EDIT MODE TWEAKS DEFAULTS ================================== */
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "purple",
+  "hero": "brutal",
+  "marquee": "solid",
+  "name": "en"
+}/*EDITMODE-END*/;
+
+/* === ACCENT COLOR MAP =========================================== */
+const ACCENTS = {
+  purple: '#A855F7',
+  neon:   '#39FF14',
+  amber:  '#FF7A00',
+  ice:    '#5EE0FF',
+};
+
+/* === EDIT MODE PROTOCOL ========================================= */
+(function tweaksProtocol() {
+  const panel = document.getElementById('tweaksPanel');
+
+  let state = { ...TWEAK_DEFAULTS };
+
+  function applyAll() {
+    applyAccent(state.accent);
+    applyHero(state.hero);
+    applyMarquee(state.marquee);
+    applyName(state.name);
+    // sync swatches/opts
+    panel.querySelectorAll('[data-group]').forEach(group => {
+      const key = group.getAttribute('data-group');
+      group.querySelectorAll('[data-value]').forEach(btn => {
+        btn.setAttribute('aria-selected', String(btn.getAttribute('data-value') === state[key]));
+      });
+    });
+  }
+
+  function applyAccent(val) {
+    const c = ACCENTS[val] || ACCENTS.purple;
+    document.documentElement.style.setProperty('--accent', c);
+    document.body.setAttribute('data-accent', val);
+  }
+  function applyHero(val) { document.body.setAttribute('data-hero', val); }
+  function applyMarquee(val) { document.body.setAttribute('data-marquee', val); }
+  function applyName(val) {
+    const h = document.querySelector('.hero-name');
+    if (!h) return;
+    if (val === 'ko') {
+      h.innerHTML = `
+        <span class="line"><span class="inner">이현<span class="dot"></span>주.</span></span>
+        <span class="line kor"><span class="inner">YI <span class="accent">·</span> HYEON JU</span></span>
+        <span class="line kor"><span class="inner">헬스케어 <span class="accent">·</span> 기획자</span></span>`;
+    } else {
+      h.innerHTML = `
+        <span class="line"><span class="inner">YI HYEONJU</span></span>
+        <span class="line"><span class="inner" style="font-size: 20px">
+</span></span>
+        <span class="line kor"><span class="inner">이현주 <span class="accent">·</span> 헬스케어 기획자</span></span>`;
+    }
+    // re-run reveal on name lines (without delay)
+    h.querySelectorAll('.line .inner').forEach((el) => {
+      el.style.transform = 'translateY(0)';
+    });
+  }
+
+  // listen
+  window.addEventListener('message', (ev) => {
+    const d = ev.data || {};
+    if (d.type === '__activate_edit_mode') { panel.classList.add('open'); panel.setAttribute('aria-hidden','false'); }
+    if (d.type === '__deactivate_edit_mode') { panel.classList.remove('open'); panel.setAttribute('aria-hidden','true'); }
+  });
+  // announce
+  try { window.parent.postMessage({type:'__edit_mode_available'}, '*'); } catch(e){}
+
+  // close
+  document.getElementById('tpClose').addEventListener('click', () => {
+    panel.classList.remove('open');
+    panel.setAttribute('aria-hidden','true');
+    try { window.parent.postMessage({type:'__edit_mode_dismissed'}, '*'); } catch(e){}
+  });
+
+  // option clicks
+  panel.querySelectorAll('[data-group]').forEach(group => {
+    const key = group.getAttribute('data-group');
+    group.querySelectorAll('[data-value]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = btn.getAttribute('data-value');
+        state[key] = val;
+        applyAll();
+        try { window.parent.postMessage({type:'__edit_mode_set_keys', edits:{[key]: val}}, '*'); } catch(e){}
+      });
+    });
+  });
+
+  applyAll();
+})();
+
+/* === PROGRESS BAR =============================================== */
+(function progress() {
+  const bar = document.getElementById('progressBar');
+  function update() {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const p = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    bar.style.width = p + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
+/* === CUSTOM CURSOR ============================================== */
+(function cursor() {
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  if (!dot || !ring) return;
+  if (window.matchMedia('(max-width: 900px)').matches) return;
+
+  let mx = window.innerWidth/2, my = window.innerHeight/2;
+  let rx = mx, ry = my;
+  window.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+  });
+  function tick() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  function bindHover(el) {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+  }
+  document.querySelectorAll('a, button, [data-hover], .work-row, .strength-card, .contact-cta').forEach(bindHover);
+})();
+
+/* === GSAP TIMELINES ============================================= */
+window.addEventListener('load', () => {
+  if (!window.gsap) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero clip-path stagger reveal
+  const heroLines = document.querySelectorAll('.hero-name .line .inner');
+  gsap.fromTo(heroLines,
+    { yPercent: 110 },
+    { yPercent: 0, duration: 1.2, ease: 'power4.out', stagger: 0.14, delay: 0.2 }
+  );
+  // Job title fade
+  gsap.fromTo('.hero-top .role',
+    { y: 20, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', delay: 0.55 }
+  );
+  gsap.fromTo('.hero-top .year',
+    { y: 20, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', delay: 0.65 }
+  );
+  gsap.fromTo('.hero-bottom',
+    { y: 24, opacity: 0 },
+    { y: 0, opacity: 1, duration: 1.0, ease: 'power3.out', delay: 0.9 }
+  );
+
+  // Section display headings
+  gsap.utils.toArray('.reveal-h').forEach(el => {
+    gsap.fromTo(el,
+      { y: 60, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.0, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' } }
+    );
+  });
+  // Body paragraphs
+  gsap.utils.toArray('.reveal-p').forEach(el => {
+    gsap.fromTo(el,
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' } }
+    );
+  });
+  // Works/Experience rows
+  document.querySelectorAll('.works-rows, .exp-list').forEach(group => {
+    const rows = group.querySelectorAll('.reveal-row');
+    gsap.fromTo(rows,
+      { x: -20, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.7, ease: 'power2.out', stagger: 0.09,
+        scrollTrigger: { trigger: group, start: 'top 85%' } }
+    );
+  });
+  // Strength cards
+  gsap.utils.toArray('.reveal-card').forEach((el, i) => {
+    gsap.fromTo(el,
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out', delay: i * 0.08,
+        scrollTrigger: { trigger: el, start: 'top 90%' } }
+    );
+  });
+
+  // Count up KPIs
+  document.querySelectorAll('.count').forEach(el => {
+    const to = parseFloat(el.getAttribute('data-to'));
+    const dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
+    const obj = { v: 0 };
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 88%',
+      once: true,
+      onEnter: () => {
+        gsap.to(obj, {
+          v: to, duration: 2, ease: 'power2.out',
+          onUpdate: () => {
+            el.textContent = dec
+              ? obj.v.toFixed(dec)
+              : Math.round(obj.v).toLocaleString('en-US');
+          }
+        });
+      }
+    });
+  });
+
+  // Contact mega clip-path reveal
+  const contactInners = document.querySelectorAll('.contact-mega .line');
+  gsap.set(contactInners, { clipPath: 'inset(0 0 100% 0)' });
+  ScrollTrigger.create({
+    trigger: '.contact-mega',
+    start: 'top 80%',
+    once: true,
+    onEnter: () => {
+      gsap.to(contactInners, {
+        clipPath: 'inset(0 0 0% 0)',
+        duration: 1.2, ease: 'power4.out', stagger: 0.18
+      });
+    }
+  });
+});
+
+/* === MAGNETIC BUTTON ============================================ */
+(function magnetic() {
+  const btn = document.querySelector('.magnetic');
+  if (!btn) return;
+  const STRENGTH = 12;
+  btn.addEventListener('mousemove', (e) => {
+    const r = btn.getBoundingClientRect();
+    const cx = r.left + r.width/2;
+    const cy = r.top + r.height/2;
+    const dx = (e.clientX - cx) / (r.width/2);
+    const dy = (e.clientY - cy) / (r.height/2);
+    btn.style.transform = `translate(${dx*STRENGTH}px, ${dy*STRENGTH}px)`;
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = 'translate(0,0)';
+  });
+})();
+
+/* === THUMB FOLLOWER ============================================ */
+(function thumbFollower() {
+  const follower = document.getElementById('thumbFollower');
+  if (!follower) return;
+  if (window.matchMedia('(max-width: 900px)').matches) return;
+  const slots = follower.querySelectorAll('.thumb');
+  let activeRow = null;
+  let targetX = 0, targetY = 0;
+  let curX = 0, curY = 0;
+  const W = 360, OFFSET_X = 28, OFFSET_Y = 24;
+
+  function show(row) {
+    if (activeRow === row) return;
+    activeRow = row;
+    let thumbs;
+    try { thumbs = JSON.parse(row.getAttribute('data-thumbs') || '[]'); } catch(e) { thumbs = []; }
+    slots.forEach((s, i) => {
+      const src = thumbs[i];
+      s.style.backgroundImage = src ? 'url("'+src+'")' : 'none';
+      s.style.display = src ? '' : 'none';
+    });
+    follower.classList.add('is-visible');
+  }
+  function hide() {
+    activeRow = null;
+    follower.classList.remove('is-visible');
+  }
+  document.querySelectorAll('[data-thumbs]').forEach(row => {
+    row.addEventListener('mouseenter', () => show(row));
+    row.addEventListener('mouseleave', hide);
+  });
+  window.addEventListener('mousemove', (e) => {
+    // Place follower near cursor, but clamp inside viewport
+    let x = e.clientX + OFFSET_X;
+    let y = e.clientY + OFFSET_Y;
+    if (x + W > window.innerWidth - 16) x = e.clientX - W - OFFSET_X;
+    targetX = x; targetY = y;
+  });
+  function tick() {
+    curX += (targetX - curX) * 0.18;
+    curY += (targetY - curY) * 0.18;
+    follower.style.left = '0px';
+    follower.style.top  = '0px';
+    follower.style.transform = `translate(${curX}px, ${curY}px) scale(${activeRow ? 1 : 0.96})`;
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+/* === SMOOTH ANCHOR ============================================== */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const id = a.getAttribute('href').slice(1);
+    const target = document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    const y = target.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  });
+});
+</script>
+</body>
 </html>
+
+<style id="__om-edit-overrides">
+#home :is(h1,h2,h3,h4,h5,h6) >span:nth-child(2) >.inner { font-size: 6px !important }
+</style>

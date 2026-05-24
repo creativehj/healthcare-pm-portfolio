@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>비춤 · 심리학적 AI 꿈분석 엔진 — Case Study · 이현주</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --bg-alt: #111111;
+    --bg-card: #161616;
+    --text-primary: #F0F0F0;
+    --text-secondary: #888888;
+    --text-tertiary: #555555;
+    --accent: #A855F7;
+    --border: #222222;
+    --grid-line: rgba(240,240,240,0.04);
+  }
+
+  *,*::before,*::after { box-sizing: border-box; margin:0; padding:0; }
+  html, body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Pretendard', -apple-system, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: #000; }
+
+  .ghost-grid {
+    position: fixed; inset: 0; pointer-events: none; z-index: 1;
+    background-image:
+      repeating-linear-gradient(0deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 80px),
+      repeating-linear-gradient(90deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 80px);
+    opacity: 0.6;
+  }
+
+  /* === TOP BAR ================================================== */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 64px;
+    z-index: 50;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-secondary);
+    backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, rgba(10,10,10,0.85), rgba(10,10,10,0));
+  }
+  .topbar a.back {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--accent);
+    transition: opacity 0.2s;
+  }
+  .topbar a.back:hover { opacity: 0.7; }
+  .topbar .arrow {
+    width: 20px; height: 1px; background: var(--accent); position: relative;
+  }
+  .topbar .arrow::before {
+    content: ''; position: absolute; left: 0; top: -3px;
+    width: 7px; height: 7px;
+    border-left: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+    transform: rotate(45deg);
+  }
+  .topbar .meta { display: flex; gap: 32px; }
+
+  /* === LAYOUT =================================================== */
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 64px; position: relative; z-index: 2; }
+
+  /* === HERO ===================================================== */
+  .case-hero {
+    padding: 180px 64px 80px;
+    position: relative;
+    z-index: 2;
+  }
+  .case-hero .label {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+  }
+  .case-hero .label .num {
+    background: var(--accent); color: #000;
+    padding: 4px 10px; letter-spacing: 0.18em;
+  }
+  .case-hero h1 {
+    font-size: clamp(72px, 12vw, 180px);
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+  }
+  .case-hero h1 .ko {
+    display: block;
+    font-size: 0.4em;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin-bottom: 0.18em;
+    text-transform: none;
+  }
+  .case-hero h1 .ko .accent { color: var(--accent); }
+  .case-hero h1 .en .accent { color: var(--accent); }
+
+  .case-hero .subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-top: 40px;
+    max-width: 720px;
+  }
+  .case-hero .subtitle strong { color: var(--text-primary); font-weight: 600; }
+
+  .hero-tags {
+    margin-top: 28px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .hero-tags span {
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* === FACTS BAR ================================================ */
+  .facts {
+    margin: 100px 0 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .fact {
+    padding: 32px 28px;
+    border-right: 1px solid var(--border);
+  }
+  .fact:last-child { border-right: none; }
+  .fact .key {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.25em; color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .fact .val {
+    font-size: 17px; font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.45;
+  }
+
+  /* === SECTIONS ================================================= */
+  .case-section {
+    padding: 120px 64px;
+    position: relative;
+    z-index: 2;
+  }
+  .case-section .container > .head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    margin-bottom: 60px;
+    align-items: start;
+  }
+  .case-section .step {
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 0.25em; color: var(--accent);
+    text-transform: uppercase;
+    padding-top: 6px;
+  }
+  .case-section h2 {
+    font-size: clamp(40px, 4.5vw, 68px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--text-primary);
+  }
+  .case-section h2 .ko {
+    display: block;
+    font-size: 0.36em;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary);
+    margin-top: 14px;
+    text-transform: none;
+  }
+  .case-section .body {
+    grid-column: 2;
+    max-width: 880px;
+  }
+  .case-section .body p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+  }
+  .case-section .body p strong { color: var(--text-primary); font-weight: 600; }
+  .case-section .body p em { color: var(--accent); font-style: normal; font-weight: 600; }
+
+  /* === ARTIFACT FIGURES ========================================= */
+  .figure {
+    margin: 60px 0;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .figure .imgwrap {
+    background: #fafafa;
+    padding: 28px;
+    text-align: center;
+  }
+  .figure img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+  .figure .caption {
+    padding: 18px 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+  }
+  .figure .caption .lhs {
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .figure .caption .rhs {
+    text-align: right;
+    line-height: 1.6;
+    max-width: 480px;
+  }
+
+  .figure-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 60px 0;
+  }
+  .figure-grid .figure { margin: 0; }
+
+  /* === DELIVERABLES LIST ======================================== */
+  .deliverables {
+    margin: 60px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .deliverable {
+    background: var(--bg-card);
+    padding: 28px 28px;
+    transition: background 0.3s;
+  }
+  .deliverable:hover { background: #1d1d1d; }
+  .deliverable .n {
+    font-size: 11px; font-weight: 700;
+    color: var(--accent); letter-spacing: 0.2em;
+    margin-bottom: 12px;
+  }
+  .deliverable .t {
+    font-size: 17px; font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .deliverable .d {
+    font-size: 13px; line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* === LEVEL MATRIX (rebuilt from logic.pdf) ==================== */
+  .level-matrix-wrap {
+    margin: 60px 0;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 36px;
+  }
+  .level-matrix-wrap h3 {
+    font-size: 14px; font-weight: 800;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  .level-matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-feature-settings: 'tnum';
+  }
+  .level-matrix th, .level-matrix td {
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .level-matrix th {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--accent);
+  }
+  .level-matrix td:first-child {
+    color: var(--text-primary);
+    font-weight: 700;
+    width: 56px;
+  }
+  .level-matrix td.layout {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+  }
+  .level-matrix .colors {
+    display: inline-flex; gap: 4px;
+    vertical-align: middle;
+  }
+  .level-matrix .colors i {
+    display: inline-block;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .level-matrix tr.bandstart td {
+    border-top: 1px solid color-mix(in oklab, var(--accent), transparent 70%);
+  }
+  .level-matrix .difficulty {
+    display: inline-block;
+    width: 70px;
+    height: 6px;
+    background: linear-gradient(90deg, transparent, var(--accent));
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* === ADAPTIVE ALGORITHM ======================================= */
+  .adapt-grid {
+    margin: 60px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .adapt-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 28px;
+  }
+  .adapt-card .head {
+    display: flex; justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 14px; margin-bottom: 18px;
+  }
+  .adapt-card .head .sess {
+    font-size: 22px; font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+  .adapt-card .head .rval {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .adapt-card .rounds {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .adapt-card .rounds .r {
+    flex: 1;
+    text-align: center;
+    padding: 10px 4px;
+    border: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    letter-spacing: 0.06em;
+  }
+  .adapt-card .rounds .r .lyt {
+    display: block;
+    color: var(--text-tertiary);
+    font-weight: 500;
+    font-size: 10px;
+    margin-top: 4px;
+  }
+  .adapt-card .rounds .r.hi {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .adapt-card .rounds .r.lo {
+    border-color: #444;
+    color: #666;
+  }
+  .adapt-card .verdict {
+    display: flex; justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-secondary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+    font-weight: 600;
+  }
+  .adapt-card .verdict b { color: var(--accent); font-weight: 800; }
+
+  /* === OUTCOME GRID ============================================= */
+  .outcome-grid {
+    margin: 60px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .outcome-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 36px 28px;
+  }
+  .outcome-card .num {
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--text-primary);
+  }
+  .outcome-card .num .unit {
+    font-size: 0.36em;
+    color: var(--accent);
+    margin-left: 4px;
+    letter-spacing: 0;
+    vertical-align: 0.4em;
+  }
+  .outcome-card .label {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* === NEXT / FOOTER ============================================ */
+  .case-next {
+    padding: 100px 64px 60px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .case-next a {
+    display: inline-flex;
+    align-items: center; gap: 16px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 6px;
+    transition: color 0.2s;
+  }
+  .case-next a:hover { color: var(--accent); }
+  .case-next .pre {
+    font-size: 11px; font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .site-footer {
+    padding: 40px 64px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* === RESPONSIVE =============================================== */
+  @media (max-width: 900px) {
+    .topbar { padding: 18px 24px; }
+    .container, .case-hero, .case-section, .case-next, .site-footer { padding-left: 24px; padding-right: 24px; }
+    .case-hero { padding-top: 120px; padding-bottom: 60px; }
+    .case-section { padding-top: 80px; padding-bottom: 80px; }
+    .case-section .container > .head { grid-template-columns: 1fr; gap: 16px; }
+    .case-section .body { grid-column: 1; }
+    .facts { grid-template-columns: 1fr 1fr; }
+    .fact { border-right: 1px solid var(--border); }
+    .fact:nth-child(2n) { border-right: none; }
+    .fact:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+    .figure-grid { grid-template-columns: 1fr; }
+    .deliverables { grid-template-columns: 1fr; }
+    .adapt-grid { grid-template-columns: 1fr; }
+    .outcome-grid { grid-template-columns: 1fr; }
+    .level-matrix th:nth-child(n+4), .level-matrix td:nth-child(n+4) { display: none; }
+    .site-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
+  }
+
+  @media print {
+    @page { size: A4; margin: 14mm; }
+    html, body { background: #fff; color: #111; }
+    .ghost-grid, .topbar { display: none !important; }
+    a { color: inherit; }
+    .case-hero, .case-section, .case-next, .site-footer { padding-left: 0 !important; padding-right: 0 !important; }
+  }
+
+  /* === CASE 03 SPECIFIC ========================================= */
+  .side-badge {
+    display: inline-flex; align-items: flex-start; gap: 14px;
+    border: 1px solid var(--accent);
+    padding: 14px 18px;
+    margin-top: 28px;
+    max-width: 720px;
+    background: rgba(168,85,247,0.06);
+  }
+  .side-badge .stamp {
+    font-size: 9px; font-weight: 800;
+    letter-spacing: 0.28em; color: var(--accent);
+    text-transform: uppercase;
+    border-right: 1px solid var(--accent);
+    padding-right: 14px;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+  .side-badge .body-txt {
+    font-size: 13px; line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .side-badge .body-txt strong { color: var(--text-primary); font-weight: 700; }
+
+  /* Pipeline 8-step */
+  .pipeline {
+    margin: 40px 0;
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
+    padding: 36px 32px;
+  }
+  .pipeline .pl-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 14px;
+    margin-bottom: 28px;
+  }
+  .pipeline .pl-title {
+    font-size: 14px; font-weight: 800;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .pipeline .pl-note {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.1em;
+  }
+  .pipeline svg { width: 100%; height: auto; display: block; }
+
+  /* Principle hex grid */
+  .principles {
+    margin: 40px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .principle {
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    padding: 24px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .principle:hover {
+    border-color: var(--accent);
+    background: #1d1d1d;
+  }
+  .principle .pn-n {
+    font-family: ui-monospace,monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    font-weight: 800;
+  }
+  .principle .pn-t {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-top: 8px;
+    letter-spacing: -0.02em;
+  }
+  .principle .pn-en {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .principle .pn-d {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    margin-top: 18px;
+  }
+
+  /* Report IA 5 sections */
+  .report-ia {
+    margin: 40px 0;
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
+    padding: 36px 32px;
+  }
+  .report-ia .ria-head {
+    font-size: 14px; font-weight: 800;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 14px;
+    margin-bottom: 28px;
+  }
+  .report-ia .ria-rows {
+    display: grid;
+    gap: 12px;
+  }
+  .report-ia .ria-row {
+    display: grid;
+    grid-template-columns: 60px 1fr 2fr;
+    gap: 24px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    align-items: baseline;
+    background: var(--bg);
+  }
+  .report-ia .ria-row .ria-n {
+    font-family: ui-monospace,monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    font-weight: 800;
+  }
+  .report-ia .ria-row .ria-t {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .report-ia .ria-row .ria-d {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 900px) {
+    .principles { grid-template-columns: 1fr; }
+    .report-ia .ria-row { grid-template-columns: 1fr; gap: 6px; }
+    .side-badge { flex-direction: column; }
+    .side-badge .stamp { border-right: none; border-bottom: 1px solid var(--accent); padding-right: 0; padding-bottom: 8px; }
+  }
+
+</style>
+</head>
+<body>
+
+  <div class="ghost-grid" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="back" href="index.html">
+      <span class="arrow"></span>
+      BACK TO PORTFOLIO
+    </a>
+    <div class="meta">
+      <span>CASE · 03</span>
+      <span>YI HYEON JU · 2026</span>
+    </div>
+  </header>
+
+  <!-- =============== HERO =============== -->
+  <section class="case-hero">
+    <div class="container">
+      <div class="label">
+        <span class="num">CASE 03</span>
+        <span>TEAM KNOCKKNOCK · 사이드 프로젝트</span>
+      </div>
+      <h1>
+        <span class="ko">비춤 <span class="accent">·</span></span>
+        <span class="ko">심리학적 AI 꿈분석 엔진<span class="accent">.</span></span>
+      </h1>
+      <p class="subtitle">
+        사용자가 자유 입력한 꿈을 <strong>장면 · 감정 · 인물 · 상징 · 맥락</strong>으로 분해하고, AI가 일관된 순서로 분석해 <em style="font-style:normal;color:var(--accent);font-weight:700;">자기탐색 코칭형 피드백</em>을 생성하도록 설계한 사이드 프로젝트. 임상심리상담의 응대 톤을 프롬프트 구조로 환원해 단정·환각·진단적 표현을 차단하는 데에 초점.
+      </p>
+
+      <div class="side-badge" role="note" aria-label="사이드 프로젝트 정보">
+        <div class="stamp">SIDE PROJECT<br/>TEAM<br/>KNOCKKNOCK</div>
+        <div class="body-txt">
+          <strong>직접 기획 · 론칭 · 운영 중</strong><br/>
+          기획·콘텐츠·프롬프트 엔지니어링·UX 카피 전반 담당.<br/>
+          론칭 3개월 / 사용자 93명 · 꿈 입력 1,001건 / 긍정 응답 96% · 재사용 의향 50%.
+        </div>
+      </div>
+
+      <div class="hero-tags">
+        <span>AI 리포트 IA</span>
+        <span>프롬프트</span>
+        <span>임상 톤</span>
+        <span>자기탐색</span>
+        <span>직접 운영</span>
+        <span>응답 품질</span>
+      </div>
+
+      <div class="facts">
+        <div class="fact">
+          <div class="key">기간</div>
+          <div class="val">2025 — 현재</div>
+        </div>
+        <div class="fact">
+          <div class="key">역할</div>
+          <div class="val">AI 심리 콘텐츠 기획 · 프롬프트 엔지니어링</div>
+        </div>
+        <div class="fact">
+          <div class="key">소속</div>
+          <div class="val">Side Project · Team KnockKnock</div>
+        </div>
+        <div class="fact">
+          <div class="key">규모</div>
+          <div class="val">론칭 3개월 / 사용자 93명 · 꿈 입력 1,001건</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 01 BACKGROUND =============== -->
+  <section class="case-section" id="background">
+    <div class="container">
+      <div class="head">
+        <div class="step">01 · BACKGROUND</div>
+        <h2>
+          자유 입력은 형식이 일정하지 않고,<br/>AI는 매번 다르게 해석할 위험이 있다.
+          <span class="ko">배 경 · 문 제 정 의</span>
+        </h2>
+      </div>
+      <div class="body">
+        <p>
+          꿈 분석은 사용자의 <strong>내면·감정·관계 경험</strong>과 연결되기 때문에, AI가 단정·진단·예언적으로 표현하면 신뢰도와 심리적 안전성이 떨어집니다. 기존 꿈 해석 서비스는 비과학적 상징 해석이나 단순 라벨링에 머물러 정서 탐색·자기 이해로 이어지기 어려웠습니다.
+        </p>
+        <p>
+          단순히 "꿈을 해석하는 프롬프트"가 아닌, <em>입력을 분석 가능한 요소로 분해</em>하고 <em>AI가 일정한 기준에 따라 결과를 생성</em>하도록 만드는 엔진 구조가 필요했습니다.
+        </p>
+        <p>
+          임상심리상담 현장에서 다져온 <strong>응대 톤과 안전성 원칙</strong>을 프롬프트 구조로 환원하는 것이 이 프로젝트의 출발점이었습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 02 APPROACH =============== -->
+  <section class="case-section" id="approach">
+    <div class="container">
+      <div class="head">
+        <div class="step">02 · APPROACH</div>
+        <h2>
+          입력 구조 → 분석 기준 →<br/>프롬프트 → 리포트 IA.
+          <span class="ko">엔 진 설 계 · 프 롬 프 트</span>
+        </h2>
+      </div>
+      <div class="body">
+        <p>
+          자유 입력에서 <strong>장면 · 감정 · 인물 · 상징 · 맥락</strong> 5요소를 추출하는 입력 구조를 정의하고, 감정·상징·관계 맥락·반복 패턴·현재 심리 상태 5축의 분석 기준을 설계했습니다. AI 응답이 매번 동일한 순서·표현 기준으로 분석되도록 프롬프트 구조를 고정했습니다.
+        </p>
+
+        <!-- Pipeline -->
+        <div class="pipeline">
+          <div class="pl-head">
+            <span class="pl-title">— DREAM ANALYSIS ENGINE · 8 STEPS</span>
+            <span class="pl-note">사용자 입력 → 자기탐색 질문까지</span>
+          </div>
+          <svg viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg" aria-label="꿈분석 엔진 8단계 파이프라인">
+            <defs>
+              <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                <polygon points="0 0, 6 3, 0 6" fill="#A855F7"/>
+              </marker>
+            </defs>
+
+            <g font-family="Pretendard,sans-serif" font-weight="700">
+              <!-- Row 1: 4 steps -->
+              <g transform="translate(0,40)">
+                <g transform="translate(20,0)">
+                  <rect width="140" height="64" fill="#0A0A0A" stroke="#A855F7" stroke-width="1.5"/>
+                  <text x="70" y="22" text-anchor="middle" fill="#A855F7" font-size="9" letter-spacing="2">— STEP 01</text>
+                  <text x="70" y="44" text-anchor="middle" fill="#F0F0F0" font-size="14">사용자 꿈 입력</text>
+                </g>
+                <line x1="160" y1="32" x2="190" y2="32" stroke="#A855F7" marker-end="url(#arrowhead)"/>
+                <g transform="translate(190,0)">
+                  <rect width="140" height="64" fill="#0A0A0A" stroke="#333"/>
+                  <text x="70" y="22" text-anchor="middle" fill="#A855F7" font-size="9" letter-spacing="2">— STEP 02</text>
+                  <text x="70" y="44" text-anchor="middle" fill="#F0F0F0" font-size="14">꿈 내용 요약</text>
+                </g>
+                <line x1="330" y1="32" x2="360" y2="32" stroke="#A855F7" marker-end="url(#arrowhead)"/>
+                <g transform="translate(360,0)">
+                  <rect width="140" height="64" fill="#0A0A0A" stroke="#333"/>
+                  <text x="70" y="22" text-anchor="middle" fill="#A855F7" font-size="9" letter-spacing="2">— STEP 03</text>
+                  <text x="70" y="44" text-anchor="middle" fill="#F0F0F0" font-size="14">핵심 감정 추출</text>
+                </g>
+                <line x1="500" y1="32" x2="530" y2="32" stroke="#A855F7" marker-end="url(#arrowhead)"/>
+                <g transform="translate(530,0)">
+                  <rect width="170" height="64" fill="#0A0A0A" stroke="#333"/>
+                  <text x="85" y="22" text-anchor="middle" fill="#A855F7" font-size="9" letter-spacing="2">— STEP 04</text>
+                  <text x="85" y="44" text-anchor="middle" fill="#F0F0F0" font-size="13">장면·인물·상징 분류</text>
+                </g>
+              </g>
+
+              <!-- Bridge -->
+              <line x1="615" y1="104" x2="615" y2="146" stroke="#A855F7" marker-end="url(#arrowhead)"/>
+
+              <!-- Row 2: 4 steps (right to left) -->
+              <g transform="translate(0,160)">
+                <g transform="translate(530,0)">
+                  <rect width="170" height="64" fill="#0A0A0A" stroke="#333"/>
+                  <text x="85" y="22" text-anchor="middle" fill="#A855F7" font-size="9" letter-spacing="2">— STEP 05</text>
+                  <text x="85" y="44" text-anchor="middle" fill="#F0F0F0" font-size="13">감정 ↔ 상징 관계 분석</text>
+                </g>
+                <line x1="500" y1="32" x2="530" y2="32" stroke="#A855F7" marker-end="url(#arrowhead)" transform="translate(0,0) scale(-1,1) translate(-1030,0)"/>
+                <g transform="translate(360,0)">
+                  <rect width="140" height="64" fill="#0A0A0A" stroke="#333"/>
+                  <text x="70" y="22" text-anchor="middle" fill="#A855F7" font-size="9" letter-spacing="2">— STEP 06</text>
+                  <text x="70" y="44" text-anchor="middle" fill="#F0F0F0" font-size="14">심리 맥락 연결</text>
+                </g>
+                <g transform="translate(190,0)">
+                  <rect width="140" height="64" fill="#0A0A0A" stroke="#333"/>
+                  <text x="70" y="22" text-anchor="middle" fill="#A855F7" font-size="9" letter-spacing="2">— STEP 07</text>
+                  <text x="70" y="44" text-anchor="middle" fill="#F0F0F0" font-size="14">개인화 피드백</text>
+                </g>
+                <g transform="translate(20,0)">
+                  <rect width="140" height="64" fill="#0A0A0A" stroke="#A855F7" stroke-width="1.5"/>
+                  <text x="70" y="22" text-anchor="middle" fill="#A855F7" font-size="9" letter-spacing="2">— STEP 08</text>
+                  <text x="70" y="44" text-anchor="middle" fill="#F0F0F0" font-size="14">자기탐색 질문</text>
+                </g>
+              </g>
+
+              <!-- backward arrows row 2 -->
+              <g stroke="#A855F7" fill="none">
+                <line x1="530" y1="192" x2="500" y2="192" marker-end="url(#arrowhead)"/>
+                <line x1="360" y1="192" x2="330" y2="192" marker-end="url(#arrowhead)"/>
+                <line x1="190" y1="192" x2="160" y2="192" marker-end="url(#arrowhead)"/>
+              </g>
+
+              <!-- annotations -->
+              <text x="360" y="290" text-anchor="middle" fill="#A855F7" font-size="11" letter-spacing="2">매 단계 응답 기준 · 톤앤매너 · 안전성 6원칙 적용</text>
+              <text x="360" y="316" text-anchor="middle" fill="#888" font-size="10" letter-spacing="2">— PROMPT ENGINEERING LAYER —</text>
+              <line x1="60" y1="270" x2="660" y2="270" stroke="#333" stroke-dasharray="3 4"/>
+            </g>
+          </svg>
+        </div>
+
+        <p>
+          위 엔진 각 단계의 응답 톤·표현 기준을 통제하기 위해 <strong>프롬프트 엔지니어링 6원칙</strong>을 정의하고 모든 응답에 동일 기준으로 적용했습니다.
+        </p>
+
+        <!-- 6 principles -->
+        <div class="principles">
+          <div class="principle">
+            <div class="pn-n">— 01</div>
+            <div class="pn-t">일관성</div>
+            <div class="pn-en">CONSISTENCY</div>
+            <div class="pn-d">매번 다른 방식으로 해석되지 않도록 분석 순서·구조 고정.</div>
+          </div>
+          <div class="principle">
+            <div class="pn-n">— 02</div>
+            <div class="pn-t">개인화</div>
+            <div class="pn-en">PERSONALIZATION</div>
+            <div class="pn-d">사용자의 꿈 내용·감정·상징·맥락을 응답에 명시 반영.</div>
+          </div>
+          <div class="principle">
+            <div class="pn-n">— 03</div>
+            <div class="pn-t">안전성</div>
+            <div class="pn-en">SAFETY</div>
+            <div class="pn-d">진단·예언·확정적 표현을 차단. 임상적 응대 톤을 기준.</div>
+          </div>
+          <div class="principle">
+            <div class="pn-n">— 04</div>
+            <div class="pn-t">이해도</div>
+            <div class="pn-en">CLARITY</div>
+            <div class="pn-d">시니어·일반 사용자도 쉽게 읽을 수 있는 문장·구조 유지.</div>
+          </div>
+          <div class="principle">
+            <div class="pn-n">— 05</div>
+            <div class="pn-t">자기탐색</div>
+            <div class="pn-en">SELF-INQUIRY</div>
+            <div class="pn-d">정답 제시보다 생각을 이어갈 수 있는 질문을 응답에 포함.</div>
+          </div>
+          <div class="principle">
+            <div class="pn-n">— 06</div>
+            <div class="pn-t">과잉해석 방지</div>
+            <div class="pn-en">RESTRAINT</div>
+            <div class="pn-d">상징을 단정하지 않고 가능성 중심으로 제시.</div>
+          </div>
+        </div>
+
+        <!-- Report IA -->
+        <div class="report-ia">
+          <div class="ria-head">— AI 꿈분석 리포트 IA · 5 SECTIONS</div>
+          <div class="ria-rows">
+            <div class="ria-row">
+              <span class="ria-n">— 01</span>
+              <span class="ria-t">요약</span>
+              <span class="ria-d">사용자 꿈 내용을 임상적 거리감으로 정리.</span>
+            </div>
+            <div class="ria-row">
+              <span class="ria-n">— 02</span>
+              <span class="ria-t">공감</span>
+              <span class="ria-d">사용자의 감정 표현을 반영·인정. 진단 표현 배제.</span>
+            </div>
+            <div class="ria-row">
+              <span class="ria-n">— 03</span>
+              <span class="ria-t">상징 해석</span>
+              <span class="ria-d">주요 상징을 가능성 중심으로 제시 · 단정 차단.</span>
+            </div>
+            <div class="ria-row">
+              <span class="ria-n">— 04</span>
+              <span class="ria-t">감정 분석</span>
+              <span class="ria-d">꿈에서의 감정과 현재 심리 맥락 연결.</span>
+            </div>
+            <div class="ria-row">
+              <span class="ria-n">— 05</span>
+              <span class="ria-t">자기탐색 질문</span>
+              <span class="ria-d">다음 행동·생각으로 이어질 수 있는 열린 질문 제안.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 03 DELIVERABLES =============== -->
+  <section class="case-section" id="deliverables">
+    <div class="container">
+      <div class="head">
+        <div class="step">03 · DELIVERABLES</div>
+        <h2>
+          핵심 산출물.
+          <span class="ko">엔 진 · 프 롬 프 트 · IA</span>
+        </h2>
+      </div>
+      <div class="body">
+        <div class="deliverables">
+          <div class="deliverable">
+            <div class="n">— 01</div>
+            <div class="t">AI 꿈분석 리포트 IA (5단계)</div>
+            <div class="d">요약 · 공감 · 상징 · 감정 · 자기탐색 질문 5섹션.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 02</div>
+            <div class="t">꿈분석 엔진 파이프라인 (8단계)</div>
+            <div class="d">입력 → 요약 → 감정 → 상징 → 관계 → 맥락 → 피드백 → 질문.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 03</div>
+            <div class="t">맞춤형 프롬프트 설계서</div>
+            <div class="d">단계별 프롬프트 · 응대 톤 · 출력 포맷 정의.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 04</div>
+            <div class="t">AI 응답 품질 검토 기준 (6원칙)</div>
+            <div class="d">일관성·개인화·안전성·이해도·자기탐색·과잉해석 방지.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 05</div>
+            <div class="t">프로토타입 핵심 화면</div>
+            <div class="d">꿈 입력 · 분석 대기 · 리포트 화면 UX.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 06</div>
+            <div class="t">UX 카피 (TIP · 대기 · 응대)</div>
+            <div class="d">꿈 작성 TIP · 분석 TIP · 대기 화면 카피.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 07</div>
+            <div class="t">사용자 입력 데이터 분석 자료</div>
+            <div class="d">1,001건 입력의 패턴·감정·재방문 분석.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 08</div>
+            <div class="t">반복 개선 로그</div>
+            <div class="d">테스트 결과 기반 프롬프트·문구·구조 개선 기록.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 04 OUTCOME =============== -->
+  <section class="case-section" id="outcome">
+    <div class="container">
+      <div class="head">
+        <div class="step">04 · OUTCOME</div>
+        <h2>
+          성과 · 배운 점.
+          <span class="ko">결 과 · 회 고</span>
+        </h2>
+      </div>
+      <div class="body">
+        <p>
+          기획 착수 후 <strong>3개월 내 프로토타입 론칭</strong>하고 초기 사용자 93명과 꿈 입력 데이터 1,001건을 확보했습니다. 설문 참여 테스터 기준 96%의 긍정 응답과 50%의 재사용 의향을 확인하며, 심리 기반 AI 리포트에 대한 초기 수요와 사용 반응을 검토했습니다.
+        </p>
+
+        <div class="outcome-grid">
+          <div class="outcome-card">
+            <div class="num">1,001<span class="unit">건</span></div>
+            <div class="label">꿈 입력 데이터<br/>· 론칭 3개월 · 운영 중</div>
+          </div>
+          <div class="outcome-card">
+            <div class="num">93<span class="unit">명</span></div>
+            <div class="label">초기 사용자<br/>· 직접 운영 / 사이드 프로젝트</div>
+          </div>
+          <div class="outcome-card">
+            <div class="num">96 / 50<span class="unit">%</span></div>
+            <div class="label">긍정 응답 / 재사용 의향<br/>· 테스터 설문 기준</div>
+          </div>
+        </div>
+
+        <p style="margin-top:48px;">
+          이 프로젝트를 통해 <em>생성형 AI를 활용해 복잡한 데이터를 사용자에게 제공할 때, 단순한 해석보다 사용자가 실제로 다음 탐색 행동을 선택하도록 돕는 코칭 구조가 중요하다는 점</em>을 확인했습니다. 헬스케어 영역의 AI 건강코치 역시 검진 결과를 단순 설명하는 데 그치지 않고, 사용자가 자신의 건강 상태를 이해하고 생활습관 개선·진료과 탐색·후속 관리 행동을 선택하도록 돕는 구조가 핵심이며, 이 점에서 생성형 AI 기반 리포트 구조 설계와 프롬프트 품질관리 경험을 활용할 수 있습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== NEXT =============== -->
+  <section class="case-next">
+    <div class="pre">— END OF CASE 03</div>
+    <a href="index.html">← BACK TO PORTFOLIO</a>
+  </section>
+
+  <footer class="site-footer">
+    <div>© 2026 YI HYEON JU · DIGITAL HEALTHCARE PLANNER</div>
+    <div>CASE 03 · 비춤 · BUILT WITH HTML + CSS</div>
+  </footer>
+
+<!-- case-4 level matrix script removed -->
+</body>
+</html>

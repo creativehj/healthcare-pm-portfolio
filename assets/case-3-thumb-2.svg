@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <rect width="320" height="200" fill="#0A0A0A"></rect>
+  <text x="16" y="22" fill="#A855F7" font-family="Pretendard,sans-serif" font-size="9" font-weight="800" letter-spacing="3">PROMPT · 6 원칙</text>
+  
+  <g font-family="Pretendard,sans-serif" font-size="9" font-weight="700">
+    <g transform="translate(20,42)"><rect width="84" height="42" fill="#161616" stroke="#A855F7"></rect><text x="42" y="17" text-anchor="middle" fill="#A855F7">일관성</text><text x="42" y="32" text-anchor="middle" fill="#666" font-size="7" font-weight="500">consistency</text></g>
+    <g transform="translate(118,42)"><rect width="84" height="42" fill="#161616" stroke="#333"></rect><text x="42" y="17" text-anchor="middle" fill="#F0F0F0">개인화</text><text x="42" y="32" text-anchor="middle" fill="#666" font-size="7" font-weight="500">personal</text></g>
+    <g transform="translate(216,42)"><rect width="84" height="42" fill="#161616" stroke="#A855F7"></rect><text x="42" y="17" text-anchor="middle" fill="#A855F7">안전성</text><text x="42" y="32" text-anchor="middle" fill="#666" font-size="7" font-weight="500">safety</text></g>
+    <g transform="translate(20,96)"><rect width="84" height="42" fill="#161616" stroke="#333"></rect><text x="42" y="17" text-anchor="middle" fill="#F0F0F0">이해도</text><text x="42" y="32" text-anchor="middle" fill="#666" font-size="7" font-weight="500">clarity</text></g>
+    <g transform="translate(118,96)"><rect width="84" height="42" fill="#161616" stroke="#A855F7"></rect><text x="42" y="17" text-anchor="middle" fill="#A855F7">자기탐색</text><text x="42" y="32" text-anchor="middle" fill="#666" font-size="7" font-weight="500">inquiry</text></g>
+    <g transform="translate(216,96)"><rect width="84" height="42" fill="#161616" stroke="#333"></rect><text x="42" y="17" text-anchor="middle" fill="#F0F0F0">과잉방지</text><text x="42" y="32" text-anchor="middle" fill="#666" font-size="7" font-weight="500">restraint</text></g>
+  </g>
+  <text x="16" y="180" fill="#F0F0F0" font-family="Pretendard,sans-serif" font-size="14" font-weight="900">96 / 50</text>
+  <text x="100" y="180" fill="#888" font-family="Pretendard,sans-serif" font-size="9" font-weight="700" letter-spacing="2">% 긍정 / 재사용</text>
+</svg>

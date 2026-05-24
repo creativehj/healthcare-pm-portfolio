@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <rect width="320" height="200" fill="#0A0A0A"></rect>
+  <text x="16" y="22" fill="#A855F7" font-family="Pretendard,sans-serif" font-size="9" font-weight="800" letter-spacing="3">PROTOCOL TIMELINE</text>
+  
+  <line x1="20" y1="100" x2="304" y2="100" stroke="#333" stroke-width="1"></line>
+  <g font-family="ui-monospace,monospace" font-size="8" fill="#888">
+    <g transform="translate(20,100)"><circle r="4" fill="#A855F7"></circle><text y="22" text-anchor="middle">D+1</text></g>
+    <g transform="translate(68,100)"><circle r="3" fill="#A855F7"></circle><text y="22" text-anchor="middle">D+3</text></g>
+    <g transform="translate(116,100)"><circle r="3" fill="#A855F7"></circle><text y="22" text-anchor="middle">D+6</text></g>
+    <g transform="translate(164,100)"><circle r="3" fill="#A855F7"></circle><text y="22" text-anchor="middle">D+8</text></g>
+    <g transform="translate(212,100)"><circle r="3" fill="#888"></circle><text y="22" text-anchor="middle">D+12</text></g>
+    <g transform="translate(260,100)"><circle r="3" fill="#888"></circle><text y="22" text-anchor="middle">D+15</text></g>
+    <g transform="translate(304,100)"><circle r="3" fill="#444"></circle></g>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="8" fill="#555">
+    <text x="20" y="68" text-anchor="middle">+1</text>
+    <text x="68" y="68" text-anchor="middle">+2</text>
+    <text x="116" y="68" text-anchor="middle">+3</text>
+    <text x="164" y="68" text-anchor="middle">+1</text>
+  </g>
+  <text x="16" y="180" fill="#F0F0F0" font-family="Pretendard,sans-serif" font-size="24" font-weight="900" letter-spacing="-0.5">11</text>
+  <text x="55" y="180" fill="#888" font-family="Pretendard,sans-serif" font-size="9" font-weight="700" letter-spacing="2">/ 프로토콜</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <rect width="320" height="200" fill="#0A0A0A"></rect>
+  <text x="16" y="22" fill="#A855F7" font-family="Pretendard,sans-serif" font-size="9" font-weight="800" letter-spacing="3">DREAM PIPELINE · 8 STEPS</text>
+  
+  <g transform="translate(0,80)" font-family="ui-monospace,monospace" font-size="7" fill="#888">
+    <g transform="translate(20,0)"><rect width="32" height="22" fill="#161616" stroke="#A855F7"></rect><text x="16" y="14" text-anchor="middle" fill="#A855F7">입력</text></g>
+    <text x="56" y="14" fill="#555">›</text>
+    <g transform="translate(64,0)"><rect width="32" height="22" fill="#161616" stroke="#333"></rect><text x="16" y="14" text-anchor="middle">요약</text></g>
+    <text x="100" y="14" fill="#555">›</text>
+    <g transform="translate(108,0)"><rect width="32" height="22" fill="#161616" stroke="#333"></rect><text x="16" y="14" text-anchor="middle">감정</text></g>
+    <text x="144" y="14" fill="#555">›</text>
+    <g transform="translate(152,0)"><rect width="32" height="22" fill="#161616" stroke="#333"></rect><text x="16" y="14" text-anchor="middle">상징</text></g>
+    <text x="188" y="14" fill="#555">›</text>
+    <g transform="translate(196,0)"><rect width="32" height="22" fill="#161616" stroke="#333"></rect><text x="16" y="14" text-anchor="middle">관계</text></g>
+    <text x="232" y="14" fill="#555">›</text>
+    <g transform="translate(240,0)"><rect width="32" height="22" fill="#161616" stroke="#333"></rect><text x="16" y="14" text-anchor="middle">맥락</text></g>
+    <g transform="translate(64,32)"><rect width="32" height="22" fill="#161616" stroke="#333"></rect><text x="16" y="14" text-anchor="middle">피드백</text></g>
+    <text x="100" y="46" fill="#555">›</text>
+    <g transform="translate(108,32)"><rect width="32" height="22" fill="#161616" stroke="#A855F7"></rect><text x="16" y="14" text-anchor="middle" fill="#A855F7">질문</text></g>
+  </g>
+  <text x="16" y="180" fill="#F0F0F0" font-family="Pretendard,sans-serif" font-size="24" font-weight="900" letter-spacing="-0.5">1,001</text>
+  <text x="70" y="180" fill="#888" font-family="Pretendard,sans-serif" font-size="9" font-weight="700" letter-spacing="2">/ 꿈 입력</text>
+</svg>

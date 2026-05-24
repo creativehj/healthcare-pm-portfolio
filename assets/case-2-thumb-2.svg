@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <rect width="320" height="200" fill="#0A0A0A"></rect>
+  <text x="16" y="22" fill="#A855F7" font-family="Pretendard,sans-serif" font-size="9" font-weight="800" letter-spacing="3">EMOTION CLASSIFIER</text>
+  
+  <g transform="translate(0,90)" stroke="#A855F7" stroke-width="2" fill="none">
+    <path d="M 16 0 L 16 -20 L 24 -20 L 24 12 L 32 12 L 32 -4 L 40 -4 L 40 28 L 48 28 L 48 -14 L 56 -14 L 56 6 L 64 6 L 64 -22 L 72 -22 L 72 18 L 80 18 L 80 -8 L 88 -8 L 88 4 L 96 4 L 96 -16 L 104 -16 L 104 20 L 112 20 L 112 -10 L 120 -10 L 120 14 L 128 14 L 128 -24 L 136 -24 L 136 30 L 144 30 L 144 -12 L 152 -12 L 152 8 L 160 8 L 160 -18 L 168 -18 L 168 16 L 176 16 L 176 -6 L 184 -6 L 184 22 L 192 22 L 192 -20 L 200 -20 L 200 10 L 208 10 L 208 -14 L 216 -14 L 216 4 L 224 4 L 224 -8 L 232 -8 L 232 18 L 240 18 L 240 -12 L 248 -12 L 248 6 L 256 6 L 256 -16 L 264 -16 L 264 14 L 272 14 L 272 -4 L 280 -4 L 280 8 L 288 8 L 288 -10 L 296 -10 L 296 0 L 304 0"></path>
+  </g>
+  <g font-family="ui-monospace,monospace" font-size="8" font-weight="700" fill="#888">
+    <text x="16" y="170">긍정</text>
+    <text x="80" y="170" fill="#A855F7">부정</text>
+    <text x="144" y="170">위험</text>
+    <text x="208" y="170">중립</text>
+    <text x="272" y="170">긍정</text>
+  </g>
+  <text x="245" y="22" fill="#F0F0F0" font-family="Pretendard,sans-serif" font-size="16" font-weight="900">54명</text>
+  <text x="245" y="40" fill="#888" font-family="Pretendard,sans-serif" font-size="7" font-weight="700">상담 연계</text>
+</svg>

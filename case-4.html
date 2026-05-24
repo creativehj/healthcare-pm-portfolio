@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>맬리 · 보건소 치매예방교실 — Case Study · 이현주</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --bg-alt: #111111;
+    --bg-card: #161616;
+    --text-primary: #F0F0F0;
+    --text-secondary: #888888;
+    --text-tertiary: #555555;
+    --accent: #A855F7;
+    --border: #222222;
+    --grid-line: rgba(240,240,240,0.04);
+  }
+
+  *,*::before,*::after { box-sizing: border-box; margin:0; padding:0; }
+  html, body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Pretendard', -apple-system, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: #000; }
+
+  .ghost-grid {
+    position: fixed; inset: 0; pointer-events: none; z-index: 1;
+    background-image:
+      repeating-linear-gradient(0deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 80px),
+      repeating-linear-gradient(90deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 80px);
+    opacity: 0.6;
+  }
+
+  /* === TOP BAR ================================================== */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 64px;
+    z-index: 50;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-secondary);
+    backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, rgba(10,10,10,0.85), rgba(10,10,10,0));
+  }
+  .topbar a.back {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--accent);
+    transition: opacity 0.2s;
+  }
+  .topbar a.back:hover { opacity: 0.7; }
+  .topbar .arrow {
+    width: 20px; height: 1px; background: var(--accent); position: relative;
+  }
+  .topbar .arrow::before {
+    content: ''; position: absolute; left: 0; top: -3px;
+    width: 7px; height: 7px;
+    border-left: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+    transform: rotate(45deg);
+  }
+  .topbar .meta { display: flex; gap: 32px; }
+
+  /* === LAYOUT =================================================== */
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 64px; position: relative; z-index: 2; }
+
+  /* === HERO ===================================================== */
+  .case-hero {
+    padding: 180px 64px 80px;
+    position: relative;
+    z-index: 2;
+  }
+  .case-hero .label {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+  }
+  .case-hero .label .num {
+    background: var(--accent); color: #000;
+    padding: 4px 10px; letter-spacing: 0.18em;
+  }
+  .case-hero h1 {
+    font-size: clamp(72px, 12vw, 180px);
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+  }
+  .case-hero h1 .ko {
+    display: block;
+    font-size: 0.4em;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin-bottom: 0.18em;
+    text-transform: none;
+  }
+  .case-hero h1 .ko .accent { color: var(--accent); }
+  .case-hero h1 .en .accent { color: var(--accent); }
+
+  .case-hero .subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-top: 40px;
+    max-width: 720px;
+  }
+  .case-hero .subtitle strong { color: var(--text-primary); font-weight: 600; }
+
+  .hero-tags {
+    margin-top: 28px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .hero-tags span {
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* === FACTS BAR ================================================ */
+  .facts {
+    margin: 100px 0 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .fact {
+    padding: 32px 28px;
+    border-right: 1px solid var(--border);
+  }
+  .fact:last-child { border-right: none; }
+  .fact .key {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.25em; color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .fact .val {
+    font-size: 17px; font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.45;
+  }
+
+  /* === SECTIONS ================================================= */
+  .case-section {
+    padding: 120px 64px;
+    position: relative;
+    z-index: 2;
+  }
+  .case-section .container > .head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    margin-bottom: 60px;
+    align-items: start;
+  }
+  .case-section .step {
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 0.25em; color: var(--accent);
+    text-transform: uppercase;
+    padding-top: 6px;
+  }
+  .case-section h2 {
+    font-size: clamp(40px, 4.5vw, 68px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--text-primary);
+  }
+  .case-section h2 .ko {
+    display: block;
+    font-size: 0.36em;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary);
+    margin-top: 14px;
+    text-transform: none;
+  }
+  .case-section .body {
+    grid-column: 2;
+    max-width: 880px;
+  }
+  .case-section .body p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+  }
+  .case-section .body p strong { color: var(--text-primary); font-weight: 600; }
+  .case-section .body p em { color: var(--accent); font-style: normal; font-weight: 600; }
+
+  /* === ARTIFACT FIGURES ========================================= */
+  .figure {
+    margin: 60px 0;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .figure .imgwrap {
+    background: #fafafa;
+    padding: 28px;
+    text-align: center;
+  }
+  .figure img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+  .figure .caption {
+    padding: 18px 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+  }
+  .figure .caption .lhs {
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .figure .caption .rhs {
+    text-align: right;
+    line-height: 1.6;
+    max-width: 480px;
+  }
+
+  .figure-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 60px 0;
+  }
+  .figure-grid .figure { margin: 0; }
+
+  /* === DELIVERABLES LIST ======================================== */
+  .deliverables {
+    margin: 60px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .deliverable {
+    background: var(--bg-card);
+    padding: 28px 28px;
+    transition: background 0.3s;
+  }
+  .deliverable:hover { background: #1d1d1d; }
+  .deliverable .n {
+    font-size: 11px; font-weight: 700;
+    color: var(--accent); letter-spacing: 0.2em;
+    margin-bottom: 12px;
+  }
+  .deliverable .t {
+    font-size: 17px; font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .deliverable .d {
+    font-size: 13px; line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* === LEVEL MATRIX (rebuilt from logic.pdf) ==================== */
+  .level-matrix-wrap {
+    margin: 60px 0;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 36px;
+  }
+  .level-matrix-wrap h3 {
+    font-size: 14px; font-weight: 800;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  .level-matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-feature-settings: 'tnum';
+  }
+  .level-matrix th, .level-matrix td {
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .level-matrix th {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--accent);
+  }
+  .level-matrix td:first-child {
+    color: var(--text-primary);
+    font-weight: 700;
+    width: 56px;
+  }
+  .level-matrix td.layout {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+  }
+  .level-matrix .colors {
+    display: inline-flex; gap: 4px;
+    vertical-align: middle;
+  }
+  .level-matrix .colors i {
+    display: inline-block;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .level-matrix tr.bandstart td {
+    border-top: 1px solid color-mix(in oklab, var(--accent), transparent 70%);
+  }
+  .level-matrix .difficulty {
+    display: inline-block;
+    width: 70px;
+    height: 6px;
+    background: linear-gradient(90deg, transparent, var(--accent));
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* === ADAPTIVE ALGORITHM ======================================= */
+  .adapt-grid {
+    margin: 60px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .adapt-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 28px;
+  }
+  .adapt-card .head {
+    display: flex; justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 14px; margin-bottom: 18px;
+  }
+  .adapt-card .head .sess {
+    font-size: 22px; font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+  .adapt-card .head .rval {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .adapt-card .rounds {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .adapt-card .rounds .r {
+    flex: 1;
+    text-align: center;
+    padding: 10px 4px;
+    border: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    letter-spacing: 0.06em;
+  }
+  .adapt-card .rounds .r .lyt {
+    display: block;
+    color: var(--text-tertiary);
+    font-weight: 500;
+    font-size: 10px;
+    margin-top: 4px;
+  }
+  .adapt-card .rounds .r.hi {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .adapt-card .rounds .r.lo {
+    border-color: #444;
+    color: #666;
+  }
+  .adapt-card .verdict {
+    display: flex; justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-secondary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+    font-weight: 600;
+  }
+  .adapt-card .verdict b { color: var(--accent); font-weight: 800; }
+
+  /* === OUTCOME GRID ============================================= */
+  .outcome-grid {
+    margin: 60px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .outcome-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 36px 28px;
+  }
+  .outcome-card .num {
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--text-primary);
+  }
+  .outcome-card .num .unit {
+    font-size: 0.36em;
+    color: var(--accent);
+    margin-left: 4px;
+    letter-spacing: 0;
+    vertical-align: 0.4em;
+  }
+  .outcome-card .label {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* === NEXT / FOOTER ============================================ */
+  .case-next {
+    padding: 100px 64px 60px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .case-next a {
+    display: inline-flex;
+    align-items: center; gap: 16px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 6px;
+    transition: color 0.2s;
+  }
+  .case-next a:hover { color: var(--accent); }
+  .case-next .pre {
+    font-size: 11px; font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .site-footer {
+    padding: 40px 64px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* === RESPONSIVE =============================================== */
+  @media (max-width: 900px) {
+    .topbar { padding: 18px 24px; }
+    .container, .case-hero, .case-section, .case-next, .site-footer { padding-left: 24px; padding-right: 24px; }
+    .case-hero { padding-top: 120px; padding-bottom: 60px; }
+    .case-section { padding-top: 80px; padding-bottom: 80px; }
+    .case-section .container > .head { grid-template-columns: 1fr; gap: 16px; }
+    .case-section .body { grid-column: 1; }
+    .facts { grid-template-columns: 1fr 1fr; }
+    .fact { border-right: 1px solid var(--border); }
+    .fact:nth-child(2n) { border-right: none; }
+    .fact:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+    .figure-grid { grid-template-columns: 1fr; }
+    .deliverables { grid-template-columns: 1fr; }
+    .adapt-grid { grid-template-columns: 1fr; }
+    .outcome-grid { grid-template-columns: 1fr; }
+    .level-matrix th:nth-child(n+4), .level-matrix td:nth-child(n+4) { display: none; }
+    .site-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
+  }
+
+  @media print {
+    @page { size: A4; margin: 14mm; }
+    html, body { background: #fff; color: #111; }
+    .ghost-grid, .topbar { display: none !important; }
+    a { color: inherit; }
+    .case-hero, .case-section, .case-next, .site-footer { padding-left: 0 !important; padding-right: 0 !important; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="ghost-grid" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="back" href="index.html">
+      <span class="arrow"></span>
+      BACK TO PORTFOLIO
+    </a>
+    <div class="meta">
+      <span>CASE · 04</span>
+      <span>YI HYEON JU · 2026</span>
+    </div>
+  </header>
+
+  <!-- =============== HERO =============== -->
+  <section class="case-hero">
+    <div class="container">
+      <div class="label">
+        <span class="num">CASE 04</span>
+        <span>B2G · COGNITIVE TRAINING</span>
+      </div>
+      <h1>
+        <span class="ko">맬리 <span class="accent">·</span></span>
+        <span class="ko">보건소 치매예방교실<span class="accent">.</span></span>
+      </h1>
+      <p class="subtitle">
+        <strong>보건소 치매예방교실 B2G 시범사업</strong>의 게임형 인지훈련 콘텐츠 7종을 기획하고, 베트남 개발팀과의 협업·QA·운영 고도화를 전주기로 책임진 케이스. 5대 인지 영역 기반 콘텐츠 설계와 세션·라운드 단위 적응형 난이도 로직으로 시니어 사용자의 자발적 반복 사용을 만들었습니다.
+      </p>
+      <div class="hero-tags">
+        <span>PM · 콘텐츠</span>
+        <span>기능명세</span>
+        <span>플로우차트</span>
+        <span>적응형 난이도</span>
+        <span>글로벌 협업</span>
+        <span>QA</span>
+        <span>B2G</span>
+      </div>
+
+      <div class="facts">
+        <div class="fact">
+          <div class="key">기간</div>
+          <div class="val">2024 — 서비스 중</div>
+        </div>
+        <div class="fact">
+          <div class="key">역할</div>
+          <div class="val">서비스·콘텐츠 기획 PM</div>
+        </div>
+        <div class="fact">
+          <div class="key">협업 대상</div>
+          <div class="val">베트남 IT 개발팀 · 보건소 실무자 · UI/UX 디자이너</div>
+        </div>
+        <div class="fact">
+          <div class="key">규모</div>
+          <div class="val">5대 인지 영역 · 콘텐츠 7종 · QA 이슈 147건</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 01 배경 =============== -->
+  <section class="case-section" id="background">
+    <div class="container">
+      <div class="head">
+        <div class="step">01 · BACKGROUND</div>
+        <h2>
+          단방향 콘텐츠로는<br/>시니어를 반복 사용하게 만들 수 없었다.
+          <span class="ko">배 경 · 문 제 정 의</span>
+        </h2>
+      </div>
+      <div class="body">
+        <p>
+          보건소 치매예방교실은 <strong>시니어 사용자</strong>를 대상으로 하는 서비스였기 때문에, 콘텐츠의 재미뿐 아니라 <em>인지적 부담, 사용 편의성, 화면 이해도, 난이도 조절</em>이 모두 중요했습니다.
+        </p>
+        <p>
+          기존 단방향 콘텐츠만으로는 시니어의 자발적 참여를 유도하기 어려웠고, B2G 서비스 운영을 확대하기 위해서는 <strong>실제 사용자가 반복적으로 이용할 수 있는 게임형 인지훈련 콘텐츠</strong>와 안정적인 운영 레퍼런스가 필요했습니다.
+        </p>
+        <p>
+          또한 해외 개발팀과 협업하는 구조였기 때문에, 모호한 요구사항이나 예외 케이스를 명확한 기능명세서와 플로우차트로 정리하지 않으면 구현 오류와 일정 지연이 발생할 가능성이 컸습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 02 해결 =============== -->
+  <section class="case-section" id="solution">
+    <div class="container">
+      <div class="head">
+        <div class="step">02 · APPROACH</div>
+        <h2>
+          5대 인지 영역 × 7개 콘텐츠.<br/>예외 케이스까지 문서로.
+          <span class="ko">해 결 전 략 · 역 할</span>
+        </h2>
+      </div>
+      <div class="body">
+        <p>
+          <strong>기억력 · 주의력 · 언어능력 · 문제해결력 · 시공간 능력</strong> 5대 인지 영역을 기반으로 시니어 맞춤형 게임형 두뇌훈련 콘텐츠 7종을 기획했습니다. 각 콘텐츠의 규칙·난이도·정답/오답 처리·제한 시간·결과 화면·피드백 문구를 정의하고 기능명세서로 정리했습니다.
+        </p>
+        <p>
+          베트남 개발팀과의 협업 과정에서는 <em>화면 전환과 예외 케이스를 포함한 플로우차트</em>를 작성하여 커뮤니케이션 오류를 줄였습니다. 정답·오답·시간 초과·재시작·종료·결과 확인 등 사용자가 경험할 수 있는 주요 경로를 사전에 문서화했습니다.
+        </p>
+        <p>
+          또한 시니어 사용자의 인지 부하를 줄이기 위해 <strong>테스트앱 QA를 직접 수행</strong>하고, 로직 오류·사용성 문제·UI 허들·문구 혼선 등을 확인했습니다. QA 과정에서 147건의 이슈를 도출하고 개선 사항을 정리하여 출시 전 주요 품질 리스크를 낮췄습니다.
+        </p>
+
+        <!-- Spec figure -->
+        <figure class="figure">
+          <div class="imgwrap">
+            <img src="assets/spec.png" alt="메인게임 정답화면 기능명세서 — M-DEM 0100, 작성자 이현주" />
+          </div>
+          <figcaption class="caption">
+            <span class="lhs">FIG. 01 — 기능명세서</span>
+            <span class="rhs">
+              메인게임 정답화면(M-DEM 0100). 단어 보기 리스트 · 담아주세요 버튼 · 정답 항목 피드백 · 하단 정답 완료 피드백까지, 5개 사용자 동작 단위로 활성화 조건과 채점 애니메이션 순서를 명세화.
+            </span>
+          </figcaption>
+        </figure>
+
+        <!-- Flow figure -->
+        <figure class="figure">
+          <div class="imgwrap">
+            <img src="assets/flow.png" alt="화면 전환 플로우차트 — 오프닝부터 결과까지" />
+          </div>
+          <figcaption class="caption">
+            <span class="lhs">FIG. 02 — 플로우차트</span>
+            <span class="rhs">
+              오프닝 → 훈련방법 → 게임시작 예고 → 게임 진행(정답/오답) → 일시정지(계속·진행방법·재시작·종료) → 완주 → 결과까지의 기본 흐름과 복귀 흐름을 단일 다이어그램으로 정리.
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 03 산출물 =============== -->
+  <section class="case-section" id="deliverables">
+    <div class="container">
+      <div class="head">
+        <div class="step">03 · DELIVERABLES</div>
+        <h2>
+          핵심 산출물.
+          <span class="ko">기 획 · 명 세 · QA</span>
+        </h2>
+      </div>
+      <div class="body">
+        <div class="deliverables">
+          <div class="deliverable">
+            <div class="n">— 01</div>
+            <div class="t">게임형 인지훈련 콘텐츠 기획서</div>
+            <div class="d">5대 인지 영역 / 7종 게임의 목표·규칙·난이도·피드백 정의.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 02</div>
+            <div class="t">5대 인지 영역 분류 체계</div>
+            <div class="d">기억력 · 주의력 · 언어 · 문제해결 · 시공간 매핑.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 03</div>
+            <div class="t">기능명세서 (페이지 단위)</div>
+            <div class="d">M-DEM 0100 외 화면별 활성화 조건·채점·피드백 명세.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 04</div>
+            <div class="t">화면 전환 플로우차트</div>
+            <div class="d">기본·복귀 흐름, 일시정지 4분기 동작 정의.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 05</div>
+            <div class="t">예외 케이스 정의서</div>
+            <div class="d">시간 초과·재시작·종료·결과 미확인 등.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 06</div>
+            <div class="t">적응형 난이도 로직</div>
+            <div class="d">Lv 1~25 매트릭스 + 세션/라운드 단위 R 기반 조정.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 07</div>
+            <div class="t">QA 이슈 관리표 (147건)</div>
+            <div class="d">로직·사용성·UI·문구 카테고리별 추적·해소.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 08</div>
+            <div class="t">UX 문구 · 진행방법 문안</div>
+            <div class="d">시니어 가독성·인지 부하를 반영한 카피.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 04 난이도 로직 =============== -->
+  <section class="case-section" id="logic">
+    <div class="container">
+      <div class="head">
+        <div class="step">04 · GAME LOGIC</div>
+        <h2>
+          적응형 난이도.<br/>레이아웃 × 색상 × 점수.
+          <span class="ko">난 이 도 알 고 리 즘</span>
+        </h2>
+      </div>
+      <div class="body">
+        <p>
+          <em>"Organize the Socks"</em> 콘텐츠의 난이도 로직 일부. 단일 라운드는 <strong>레이아웃(컬럼×로우) · 색상 수 · 폰트 사이즈 · 정답/오답 점수</strong>로 정의되며, 세션 진행 중에는 직전 세션 마지막 3라운드 평균 정확도 <code style="font-family:ui-monospace,monospace;color:var(--accent)">R</code>에 따라 자동으로 Up · Hold · Down 됩니다.
+        </p>
+
+        <div class="level-matrix-wrap">
+          <h3>— LEVEL MATRIX (LV 1 — LV 25)</h3>
+          <table class="level-matrix">
+            <thead>
+              <tr>
+                <th>LV</th>
+                <th>Layout</th>
+                <th>Colors</th>
+                <th>Font</th>
+                <th>Correct</th>
+                <th>Incorrect</th>
+                <th>Difficulty</th>
+              </tr>
+            </thead>
+            <tbody id="matrix-body"></tbody>
+          </table>
+        </div>
+
+        <div class="adapt-grid">
+          <div class="adapt-card">
+            <div class="head">
+              <div class="sess">SESSION S5</div>
+              <div class="rval">R = 60% · HOLD</div>
+            </div>
+            <div class="rounds">
+              <div class="r hi">100%<span class="lyt">3×4 / C2</span></div>
+              <div class="r hi">90%<span class="lyt">4×4 / C3</span></div>
+              <div class="r lo">20%<span class="lyt">4×4 / C3</span></div>
+              <div class="r">80%<span class="lyt">3×4 / C2</span></div>
+              <div class="r">80%<span class="lyt">3×4 / C2</span></div>
+            </div>
+            <div class="verdict">
+              <span>직전 3R 평균 60%</span>
+              <span>Next Color start = <b>2</b></span>
+            </div>
+          </div>
+
+          <div class="adapt-card">
+            <div class="head">
+              <div class="sess">SESSION S7</div>
+              <div class="rval">R = 100% · UP</div>
+            </div>
+            <div class="rounds">
+              <div class="r hi">100%<span class="lyt">3×3 / C2</span></div>
+              <div class="r hi">100%<span class="lyt">3×4 / C3</span></div>
+              <div class="r hi">100%<span class="lyt">4×4 / C4</span></div>
+              <div class="r hi">100%<span class="lyt">4×5 / C5</span></div>
+              <div class="r hi">100%<span class="lyt">4×6 / C5</span></div>
+            </div>
+            <div class="verdict">
+              <span>직전 3R 평균 100%</span>
+              <span>Color start = <b>4</b></span>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          이런 방식으로 <strong>시니어 사용자의 학습 곡선에 맞춰 레이아웃·색상 강도를 점진적으로 조절</strong>하고, 정답률이 떨어지면 즉시 한 단계 낮춰 좌절을 최소화합니다. 예외 규칙(예: 3×4 레이아웃에서 Color start 보정)도 명세에 포함되어 개발 단계의 모호함을 제거했습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 05 성과 =============== -->
+  <section class="case-section" id="outcome">
+    <div class="container">
+      <div class="head">
+        <div class="step">05 · OUTCOME</div>
+        <h2>
+          성과 · 배운 점.
+          <span class="ko">결 과 · 회 고</span>
+        </h2>
+      </div>
+      <div class="body">
+        <p>
+          신규 게임형 두뇌훈련 콘텐츠 도입 후 <strong>자율 사용자 1인당 사용량이 전년 대비 33.5% 증가</strong>하며 콘텐츠 이용·서비스 참여 지표 개선에 기여했습니다. 보건소 기반 시범 운영 경험을 바탕으로 B2G 서비스의 운영 안정화와 유료 운영 전환을 위한 레퍼런스를 확보했습니다.
+        </p>
+
+        <div class="outcome-grid">
+          <div class="outcome-card">
+            <div class="num">33.5<span class="unit">%↑</span></div>
+            <div class="label">자율 사용자 1인당 사용량<br/>· 전년 대비 증가</div>
+          </div>
+          <div class="outcome-card">
+            <div class="num">147<span class="unit">건</span></div>
+            <div class="label">QA 단계 도출 이슈<br/>· 출시 전 품질 리스크 저감</div>
+          </div>
+          <div class="outcome-card">
+            <div class="num">7<span class="unit">종</span></div>
+            <div class="label">5대 인지 영역 콘텐츠<br/>· 시니어 게임형 두뇌훈련</div>
+          </div>
+        </div>
+
+        <p style="margin-top:48px;">
+          이 프로젝트를 통해 <em>모호한 요구사항과 예외 케이스를 정책서·기능명세서·플로우차트 수준에서 사전에 구조화하는 것</em>이 개발 리소스를 줄이고 출시 품질을 높이는 데 결정적이라는 점을 확인했습니다. 다학제 통합 헬스케어 플랫폼에서도 예약·결과 확인·AI 코칭·사후관리·운영자 관리 등 다양한 경로가 발생하므로, 복잡한 서비스 흐름을 명확한 산출물로 구조화하고 개발·디자인·운영 조직과 정렬하는 역량을 활용할 수 있습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== NEXT =============== -->
+  <section class="case-next">
+    <div class="pre">— END OF CASE 04</div>
+    <a href="index.html">← BACK TO PORTFOLIO</a>
+  </section>
+
+  <footer class="site-footer">
+    <div>© 2026 YI HYEON JU · DIGITAL HEALTHCARE PLANNER</div>
+    <div>CASE 04 · 맬리 · BUILT WITH HTML + CSS</div>
+  </footer>
+
+<script>
+/* Level matrix data — derived from the Game Logic spreadsheet */
+const LEVELS = [
+  [1, '3×3', 1, 'basic', 15, 12],
+  [2, '3×3', 2, 'basic', 18, 14],
+  [3, '3×4', 1, 'basic', 18, 15],
+  [4, '3×4', 2, 'basic', 21, 17],
+  [5, '3×4', 3, 'basic', 23, 18],
+  [6, '4×4', 1, 'basic', 18, 15],
+  [7, '4×4', 2, 'basic', 21, 17],
+  [8, '4×4', 3, 'basic', 23, 18],
+  [9, '4×4', 4, 'basic', 25, 19],
+  [10, '4×5', 1, 'basic', 21, 18],
+  [11, '4×5', 2, 'basic', 24, 20],
+  [12, '4×5', 3, 'basic', 26, 21],
+  [13, '4×5', 4, 'basic', 28, 22],
+  [14, '4×5', 5, 'basic', 30, 23],
+  [15, '4×6', 1, 'basic', 24, 21],
+  [16, '4×6', 2, 'basic', 27, 23],
+  [17, '4×6', 3, 'basic', 29, 24],
+  [18, '4×6', 4, 'basic', 31, 25],
+  [19, '4×6', 5, 'basic', 33, 26],
+  [20, '4×7', 1, 'basic', 27, 24],
+  [21, '4×7', 2, 'basic', 30, 26],
+  [22, '4×7', 3, 'basic', 32, 27],
+  [23, '4×7', 4, 'basic', 34, 28],
+  [24, '4×7', 5, 'basic', 36, 29],
+  [25, '4×7', 5, 'small', 38, 31],
+];
+
+const tbody = document.getElementById('matrix-body');
+let prevLayout = null;
+const maxScore = Math.max(...LEVELS.map(r => r[4]));
+
+LEVELS.forEach(([lv, layout, colors, font, correct, incorrect]) => {
+  const isBand = layout !== prevLayout;
+  prevLayout = layout;
+  const tr = document.createElement('tr');
+  if (isBand && lv > 1) tr.className = 'bandstart';
+  const dots = Array.from({length: colors}).map(() => '<i></i>').join('');
+  const diffPct = Math.round((correct / maxScore) * 100);
+  tr.innerHTML = `
+    <td>LV ${String(lv).padStart(2,'0')}</td>
+    <td class="layout">${layout}</td>
+    <td><span class="colors">${dots}</span></td>
+    <td>${font}</td>
+    <td>+${correct}</td>
+    <td>−${incorrect}</td>
+    <td><span class="difficulty" style="width:${diffPct * 0.7}px"></span></td>
+  `;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>인공지능 돌봄 · 부정 발화 대응 프로세스 — Case Study · 이현주</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
+<style>
+  :root {
+    --bg: #0A0A0A;
+    --bg-alt: #111111;
+    --bg-card: #161616;
+    --text-primary: #F0F0F0;
+    --text-secondary: #888888;
+    --text-tertiary: #555555;
+    --accent: #A855F7;
+    --border: #222222;
+    --grid-line: rgba(240,240,240,0.04);
+  }
+
+  *,*::before,*::after { box-sizing: border-box; margin:0; padding:0; }
+  html, body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Pretendard', -apple-system, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: #000; }
+
+  .ghost-grid {
+    position: fixed; inset: 0; pointer-events: none; z-index: 1;
+    background-image:
+      repeating-linear-gradient(0deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 80px),
+      repeating-linear-gradient(90deg, var(--grid-line) 0, var(--grid-line) 1px, transparent 1px, transparent 80px);
+    opacity: 0.6;
+  }
+
+  /* === TOP BAR ================================================== */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 64px;
+    z-index: 50;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-secondary);
+    backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, rgba(10,10,10,0.85), rgba(10,10,10,0));
+  }
+  .topbar a.back {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--accent);
+    transition: opacity 0.2s;
+  }
+  .topbar a.back:hover { opacity: 0.7; }
+  .topbar .arrow {
+    width: 20px; height: 1px; background: var(--accent); position: relative;
+  }
+  .topbar .arrow::before {
+    content: ''; position: absolute; left: 0; top: -3px;
+    width: 7px; height: 7px;
+    border-left: 1px solid var(--accent);
+    border-bottom: 1px solid var(--accent);
+    transform: rotate(45deg);
+  }
+  .topbar .meta { display: flex; gap: 32px; }
+
+  /* === LAYOUT =================================================== */
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 64px; position: relative; z-index: 2; }
+
+  /* === HERO ===================================================== */
+  .case-hero {
+    padding: 180px 64px 80px;
+    position: relative;
+    z-index: 2;
+  }
+  .case-hero .label {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+  }
+  .case-hero .label .num {
+    background: var(--accent); color: #000;
+    padding: 4px 10px; letter-spacing: 0.18em;
+  }
+  .case-hero h1 {
+    font-size: clamp(72px, 12vw, 180px);
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+  }
+  .case-hero h1 .ko {
+    display: block;
+    font-size: 0.4em;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin-bottom: 0.18em;
+    text-transform: none;
+  }
+  .case-hero h1 .ko .accent { color: var(--accent); }
+  .case-hero h1 .en .accent { color: var(--accent); }
+
+  .case-hero .subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-top: 40px;
+    max-width: 720px;
+  }
+  .case-hero .subtitle strong { color: var(--text-primary); font-weight: 600; }
+
+  .hero-tags {
+    margin-top: 28px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .hero-tags span {
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* === FACTS BAR ================================================ */
+  .facts {
+    margin: 100px 0 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .fact {
+    padding: 32px 28px;
+    border-right: 1px solid var(--border);
+  }
+  .fact:last-child { border-right: none; }
+  .fact .key {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.25em; color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .fact .val {
+    font-size: 17px; font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.45;
+  }
+
+  /* === SECTIONS ================================================= */
+  .case-section {
+    padding: 120px 64px;
+    position: relative;
+    z-index: 2;
+  }
+  .case-section .container > .head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    margin-bottom: 60px;
+    align-items: start;
+  }
+  .case-section .step {
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 0.25em; color: var(--accent);
+    text-transform: uppercase;
+    padding-top: 6px;
+  }
+  .case-section h2 {
+    font-size: clamp(40px, 4.5vw, 68px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--text-primary);
+  }
+  .case-section h2 .ko {
+    display: block;
+    font-size: 0.36em;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary);
+    margin-top: 14px;
+    text-transform: none;
+  }
+  .case-section .body {
+    grid-column: 2;
+    max-width: 880px;
+  }
+  .case-section .body p {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+  }
+  .case-section .body p strong { color: var(--text-primary); font-weight: 600; }
+  .case-section .body p em { color: var(--accent); font-style: normal; font-weight: 600; }
+
+  /* === ARTIFACT FIGURES ========================================= */
+  .figure {
+    margin: 60px 0;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .figure .imgwrap {
+    background: #fafafa;
+    padding: 28px;
+    text-align: center;
+  }
+  .figure img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+  .figure .caption {
+    padding: 18px 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+  }
+  .figure .caption .lhs {
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .figure .caption .rhs {
+    text-align: right;
+    line-height: 1.6;
+    max-width: 480px;
+  }
+
+  .figure-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 60px 0;
+  }
+  .figure-grid .figure { margin: 0; }
+
+  /* === DELIVERABLES LIST ======================================== */
+  .deliverables {
+    margin: 60px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .deliverable {
+    background: var(--bg-card);
+    padding: 28px 28px;
+    transition: background 0.3s;
+  }
+  .deliverable:hover { background: #1d1d1d; }
+  .deliverable .n {
+    font-size: 11px; font-weight: 700;
+    color: var(--accent); letter-spacing: 0.2em;
+    margin-bottom: 12px;
+  }
+  .deliverable .t {
+    font-size: 17px; font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .deliverable .d {
+    font-size: 13px; line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* === LEVEL MATRIX (rebuilt from logic.pdf) ==================== */
+  .level-matrix-wrap {
+    margin: 60px 0;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 36px;
+  }
+  .level-matrix-wrap h3 {
+    font-size: 14px; font-weight: 800;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 22px;
+  }
+  .level-matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-feature-settings: 'tnum';
+  }
+  .level-matrix th, .level-matrix td {
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .level-matrix th {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--accent);
+  }
+  .level-matrix td:first-child {
+    color: var(--text-primary);
+    font-weight: 700;
+    width: 56px;
+  }
+  .level-matrix td.layout {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+  }
+  .level-matrix .colors {
+    display: inline-flex; gap: 4px;
+    vertical-align: middle;
+  }
+  .level-matrix .colors i {
+    display: inline-block;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .level-matrix tr.bandstart td {
+    border-top: 1px solid color-mix(in oklab, var(--accent), transparent 70%);
+  }
+  .level-matrix .difficulty {
+    display: inline-block;
+    width: 70px;
+    height: 6px;
+    background: linear-gradient(90deg, transparent, var(--accent));
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* === ADAPTIVE ALGORITHM ======================================= */
+  .adapt-grid {
+    margin: 60px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .adapt-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 28px;
+  }
+  .adapt-card .head {
+    display: flex; justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 14px; margin-bottom: 18px;
+  }
+  .adapt-card .head .sess {
+    font-size: 22px; font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+  .adapt-card .head .rval {
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .adapt-card .rounds {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .adapt-card .rounds .r {
+    flex: 1;
+    text-align: center;
+    padding: 10px 4px;
+    border: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    letter-spacing: 0.06em;
+  }
+  .adapt-card .rounds .r .lyt {
+    display: block;
+    color: var(--text-tertiary);
+    font-weight: 500;
+    font-size: 10px;
+    margin-top: 4px;
+  }
+  .adapt-card .rounds .r.hi {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .adapt-card .rounds .r.lo {
+    border-color: #444;
+    color: #666;
+  }
+  .adapt-card .verdict {
+    display: flex; justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-secondary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+    font-weight: 600;
+  }
+  .adapt-card .verdict b { color: var(--accent); font-weight: 800; }
+
+  /* === OUTCOME GRID ============================================= */
+  .outcome-grid {
+    margin: 60px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .outcome-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    padding: 36px 28px;
+  }
+  .outcome-card .num {
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--text-primary);
+  }
+  .outcome-card .num .unit {
+    font-size: 0.36em;
+    color: var(--accent);
+    margin-left: 4px;
+    letter-spacing: 0;
+    vertical-align: 0.4em;
+  }
+  .outcome-card .label {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* === NEXT / FOOTER ============================================ */
+  .case-next {
+    padding: 100px 64px 60px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .case-next a {
+    display: inline-flex;
+    align-items: center; gap: 16px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 6px;
+    transition: color 0.2s;
+  }
+  .case-next a:hover { color: var(--accent); }
+  .case-next .pre {
+    font-size: 11px; font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .site-footer {
+    padding: 40px 64px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* === RESPONSIVE =============================================== */
+  @media (max-width: 900px) {
+    .topbar { padding: 18px 24px; }
+    .container, .case-hero, .case-section, .case-next, .site-footer { padding-left: 24px; padding-right: 24px; }
+    .case-hero { padding-top: 120px; padding-bottom: 60px; }
+    .case-section { padding-top: 80px; padding-bottom: 80px; }
+    .case-section .container > .head { grid-template-columns: 1fr; gap: 16px; }
+    .case-section .body { grid-column: 1; }
+    .facts { grid-template-columns: 1fr 1fr; }
+    .fact { border-right: 1px solid var(--border); }
+    .fact:nth-child(2n) { border-right: none; }
+    .fact:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+    .figure-grid { grid-template-columns: 1fr; }
+    .deliverables { grid-template-columns: 1fr; }
+    .adapt-grid { grid-template-columns: 1fr; }
+    .outcome-grid { grid-template-columns: 1fr; }
+    .level-matrix th:nth-child(n+4), .level-matrix td:nth-child(n+4) { display: none; }
+    .site-footer { flex-direction: column; gap: 12px; align-items: flex-start; }
+  }
+
+  @media print {
+    @page { size: A4; margin: 14mm; }
+    html, body { background: #fff; color: #111; }
+    .ghost-grid, .topbar { display: none !important; }
+    a { color: inherit; }
+    .case-hero, .case-section, .case-next, .site-footer { padding-left: 0 !important; padding-right: 0 !important; }
+  }
+
+  /* === CASE 02 SPECIFIC ========================================= */
+  .wp-badge {
+    display: inline-flex; align-items: flex-start; gap: 14px;
+    border: 1px solid var(--accent);
+    padding: 14px 18px;
+    margin-top: 28px;
+    max-width: 720px;
+    background: rgba(168,85,247,0.06);
+  }
+  .wp-badge .stamp {
+    font-size: 9px; font-weight: 800;
+    letter-spacing: 0.28em; color: var(--accent);
+    text-transform: uppercase;
+    border-right: 1px solid var(--accent);
+    padding-right: 14px;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+  .wp-badge .body-txt {
+    font-size: 13px; line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .wp-badge .body-txt strong { color: var(--text-primary); font-weight: 700; }
+
+  .quote-card {
+    margin: 40px 0;
+    border-left: 3px solid var(--accent);
+    padding: 24px 0 24px 28px;
+    background: linear-gradient(90deg, rgba(168,85,247,0.06), transparent);
+  }
+  .quote-card .q-text {
+    font-size: 20px;
+    line-height: 1.65;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    text-wrap: pretty;
+  }
+  .quote-card .q-text::before { content: '"'; color: var(--accent); margin-right: 4px; }
+  .quote-card .q-text::after  { content: '"'; color: var(--accent); margin-left: 4px; }
+  .quote-card .q-attr {
+    display: block;
+    margin-top: 18px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+  }
+  .quote-card .q-attr .name { color: var(--accent); }
+  .quote-card .q-attr .source {
+    display: block;
+    margin-top: 6px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: none;
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  .chart-figure {
+    margin: 36px 0;
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
+    padding: 36px 32px 24px;
+  }
+  .chart-figure .ch-head {
+    display: flex; justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .chart-figure .ch-title {
+    font-size: 14px; font-weight: 800;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .chart-figure .ch-source {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.1em;
+    font-weight: 600;
+  }
+  .chart-figure svg { width: 100%; height: auto; display: block; }
+  .chart-figure .ch-legend {
+    display: flex; flex-wrap: wrap; gap: 24px; row-gap: 8px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 12px;
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
+  }
+  .chart-figure .ch-legend strong { color: var(--text-primary); font-weight: 700; }
+
+  .interview-grid {
+    margin: 40px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .interview-grid .iv-group {
+    grid-column: span 2;
+    display: flex; flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .interview-grid .iv-group:first-child { margin-top: 0; }
+  .interview-grid .iv-group-head {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.25em;
+    color: var(--accent);
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--accent);
+  }
+  .interview-grid .iv-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 24px;
+    display: flex; flex-direction: column;
+    gap: 14px;
+  }
+  .interview-grid .iv-card .iv-meta {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .interview-grid .iv-card .iv-meta .name {
+    color: var(--text-primary);
+    font-size: 14px;
+    margin-right: 10px;
+  }
+  .interview-grid .iv-card .iv-q {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    text-wrap: pretty;
+  }
+  .interview-grid .iv-card .iv-q::before {
+    content: '— ';
+    color: var(--accent);
+  }
+  .interview-grid .iv-group.two-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .interview-grid .iv-group.two-cards .iv-group-head {
+    grid-column: span 2;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 10px;
+    margin-bottom: 0;
+  }
+  .interview-grid .iv-note {
+    grid-column: span 2;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    text-align: right;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 900px) {
+    .interview-grid { grid-template-columns: 1fr; }
+    .interview-grid .iv-group { grid-column: 1; }
+    .interview-grid .iv-group.two-cards { grid-template-columns: 1fr; }
+    .interview-grid .iv-group.two-cards .iv-group-head { grid-column: 1; }
+    .interview-grid .iv-note { grid-column: 1; text-align: left; }
+    .wp-badge { flex-direction: column; }
+    .wp-badge .stamp { border-right: none; border-bottom: 1px solid var(--accent); padding-right: 0; padding-bottom: 8px; }
+  }
+
+</style>
+</head>
+<body>
+
+  <div class="ghost-grid" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="back" href="index.html">
+      <span class="arrow"></span>
+      BACK TO PORTFOLIO
+    </a>
+    <div class="meta">
+      <span>CASE · 02</span>
+      <span>YI HYEON JU · 2026</span>
+    </div>
+  </header>
+
+  <!-- =============== HERO =============== -->
+  <section class="case-hero">
+    <div class="container">
+      <div class="label">
+        <span class="num">CASE 02</span>
+        <span>SK텔레콤 · 행복커뮤니티 인공지능 돌봄</span>
+      </div>
+      <h1>
+        <span class="ko">인공지능 돌봄 <span class="accent">·</span></span>
+        <span class="ko">부정 발화 대응 프로세스<span class="accent">.</span></span>
+      </h1>
+      <p class="subtitle">
+        AI 스피커가 수집하는 일상 발화를 단순 VOC가 아닌 <strong>심리상담·운영 대응이 필요한 신호</strong>로 해석하고, 케어매니저 교육·현장 운영·정책으로 연결했습니다. 데이터 기반 분석이 <em style="font-style:normal;color:var(--accent);font-weight:700;">실제 운영 정책으로 채택</em>되어 백서 본문에 두 차례 인용된 케이스.
+      </p>
+
+      <div class="wp-badge" role="note" aria-label="백서 수록 정보">
+        <div class="stamp">PUBLISHED IN<br/>WHITE PAPER<br/>2020.7</div>
+        <div class="body-txt">
+          <strong>「행복커뮤니티 인공지능 돌봄」 백서</strong><br/>
+          SK텔레콤 · (재)행복커넥트 · 전국 사회연대경제 지방정부협의회<br/>
+          본문 분석 인용 2회 · 사용자 인터뷰 진행 4건 · 감사 명단 수록
+        </div>
+      </div>
+
+      <div class="hero-tags">
+        <span>임상심리상담</span>
+        <span>감정 분류</span>
+        <span>위험군 선별</span>
+        <span>현장 운영</span>
+        <span>FGI</span>
+        <span>케어매니저 교육</span>
+        <span>백서</span>
+      </div>
+
+      <div class="facts">
+        <div class="fact">
+          <div class="key">기간</div>
+          <div class="val">2019 — 2021</div>
+        </div>
+        <div class="fact">
+          <div class="key">역할</div>
+          <div class="val">AI 돌봄 감정 분류 기획 · 심리상담</div>
+        </div>
+        <div class="fact">
+          <div class="key">협업 대상</div>
+          <div class="val">SK텔레콤 ESG · 지자체·수행기관 · ICT 케어매니저 · 운영팀 · 사용자</div>
+        </div>
+        <div class="fact">
+          <div class="key">백서 기여</div>
+          <div class="val">본문 분석 인용 2회 · 사용자 인터뷰 4건 · 감사 명단 수록</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 01 BACKGROUND =============== -->
+  <section class="case-section" id="background">
+    <div class="container">
+      <div class="head">
+        <div class="step">01 · BACKGROUND</div>
+        <h2>
+          기기 제공만으로는<br/>정서적 돌봄이 되지 않는다.
+          <span class="ko">배 경 · 문 제 정 의</span>
+        </h2>
+      </div>
+      <div class="body">
+        <p>
+          서비스 이용자 일부가 <strong>외로움 · 우울 · 불안 · 분노 · 무기력</strong> 등 부정 정서를 반복적으로 표현했습니다. 일상 발화에 묻혀 있는 이 신호를 어떻게 발견하고, 어디서부터 상담 연계가 필요한지 판단할 기준이 없었습니다.
+        </p>
+        <p>
+          단순 민원 · 일시적 감정 표현 · <em>지속적 위험 신호</em>를 구분할 체계가 부재했고, 케어매니저는 부정 발화에 어떻게 반응해야 하는지 매뉴얼 없이 현장 판단에 의지해야 했습니다.
+        </p>
+        <p>
+          AI 돌봄이 기기 보급을 넘어 <strong>심리적 안전망</strong>으로 작동하려면, 발화 데이터를 임상적 시선으로 해석하고 운영 정책으로 환원하는 별도의 프로세스가 필요했습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 02 APPROACH =============== -->
+  <section class="case-section" id="approach">
+    <div class="container">
+      <div class="head">
+        <div class="step">02 · APPROACH</div>
+        <h2>
+          발견 → 상담 → 분류 →<br/>교육 → 운영 9단계.
+          <span class="ko">해 결 전 략 · 역 할</span>
+        </h2>
+      </div>
+      <div class="body">
+        <p>
+          <strong>임상심리상담 현장 경험</strong>을 토대로, AI 스피커가 수집한 시니어의 일상 발화 데이터를 심리학적 관점에서 분석했습니다. 긍정·부정 정서 표현을 범주화하고, 반복적으로 나타나는 부정 감정 표현과 정서적 위험 신호를 <em>현장 대응 가능한 기준</em>으로 정리했습니다.
+        </p>
+        <p>
+          위험군 선별이 단순 시스템 알림에 머무르지 않도록, 현장 ICT 케어매니저가 즉각 대응할 수 있는 <strong>심리적 응대 매뉴얼</strong>을 기획했습니다. 월 1회 현장 교육과 수퍼비전을 진행하며, 케어매니저가 고위험 발화에 적절히 반응하고 필요 시 전문 심리상담으로 연계할 수 있도록 지원했습니다.
+        </p>
+        <p>
+          그 결과 디지털 서비스에서 수집된 비정형 발화 데이터가 오프라인 상담·돌봄 개입으로 이어지는 <strong>온·오프라인 연계 프로세스</strong>를 구축했습니다.
+        </p>
+
+        <!-- INSIGHT CHART — 방문 경과일 vs 부정 감정 발화 (백서 재현) -->
+        <div class="chart-figure">
+          <div class="ch-head">
+            <span class="ch-title">— 케어매니저 방문 경과일 × 부정 감정 발화</span>
+            <span class="ch-source">DATA SOURCE · 「행복커뮤니티 백서」 2020.7</span>
+          </div>
+
+          <svg viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" aria-label="방문 경과일에 따른 부정 감정 발화 추이">
+            <defs>
+              <linearGradient id="c2grad" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="#A855F7" stop-opacity="0.32"/>
+                <stop offset="100%" stop-color="#A855F7" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <!-- grid -->
+            <g stroke="#222" stroke-width="1">
+              <line x1="60" y1="40" x2="700" y2="40"/>
+              <line x1="60" y1="100" x2="700" y2="100"/>
+              <line x1="60" y1="160" x2="700" y2="160"/>
+              <line x1="60" y1="220" x2="700" y2="220"/>
+            </g>
+            <!-- axes -->
+            <line x1="60" y1="220" x2="700" y2="220" stroke="#444"/>
+            <line x1="60" y1="40"  x2="60"  y2="220" stroke="#444"/>
+
+            <!-- 30-day vertical guide -->
+            <line x1="592" y1="40" x2="592" y2="220" stroke="#A855F7" stroke-dasharray="4 4" opacity="0.9"/>
+            <text x="600" y="56" fill="#A855F7" font-family="ui-monospace,monospace" font-size="11" font-weight="800" letter-spacing="2">권장 30일</text>
+
+            <!-- area under curve -->
+            <path d="M60,200 C90,90 130,170 170,130 C210,90 250,150 290,140 C340,128 390,120 460,110 C520,102 580,80 700,50 L700,220 L60,220 Z" fill="url(#c2grad)"/>
+            <!-- curve -->
+            <path d="M60,200 C90,90 130,170 170,130 C210,90 250,150 290,140 C340,128 390,120 460,110 C520,102 580,80 700,50" fill="none" stroke="#A855F7" stroke-width="2.2"/>
+
+            <!-- data points -->
+            <g fill="#A855F7">
+              <circle cx="60"  cy="200" r="3.5"/>
+              <circle cx="170" cy="130" r="3"/>
+              <circle cx="290" cy="140" r="3"/>
+              <circle cx="460" cy="110" r="3"/>
+              <circle cx="592" cy="74"  r="4" stroke="#0A0A0A" stroke-width="2"/>
+              <circle cx="700" cy="50"  r="3"/>
+            </g>
+
+            <!-- x-axis labels -->
+            <g fill="#888" font-family="ui-monospace,monospace" font-size="10" text-anchor="middle">
+              <text x="60"  y="240">0일</text>
+              <text x="170" y="240">6일</text>
+              <text x="290" y="240">12일</text>
+              <text x="460" y="240">22일</text>
+              <text x="592" y="240">30일</text>
+              <text x="700" y="240">36일</text>
+            </g>
+
+            <!-- y-axis labels -->
+            <g fill="#555" font-family="ui-monospace,monospace" font-size="9" text-anchor="end">
+              <text x="54" y="44">HIGH</text>
+              <text x="54" y="164">MID</text>
+              <text x="54" y="224">LOW</text>
+            </g>
+
+            <!-- axis titles -->
+            <text x="380" y="270" fill="#888" font-family="Pretendard,sans-serif" font-size="11" font-weight="700" letter-spacing="2" text-anchor="middle">케어매니저 방문 후 경과기간 (일)</text>
+            <text transform="translate(20,140) rotate(-90)" fill="#888" font-family="Pretendard,sans-serif" font-size="11" font-weight="700" letter-spacing="2" text-anchor="middle">부정 감정 발화</text>
+
+            <!-- title annotation -->
+            <text x="74" y="194" fill="#A855F7" font-family="Pretendard,sans-serif" font-size="11" font-weight="800">↓ 방문 직후 급감</text>
+            <text x="492" y="46" fill="#A855F7" font-family="Pretendard,sans-serif" font-size="11" font-weight="800">↑ 30일 전후 재상승</text>
+          </svg>
+
+          <div class="ch-legend">
+            <div><strong>INSIGHT</strong> &nbsp;방문 직후 부정 감정 발화 급격히 감소 → 시간 경과에 따라 점진 회복 → 30일 전후 재상승.</div>
+            <div><strong>OUTCOME</strong> &nbsp;본인 분석이 백서에 채택되어 <strong>케어매니저 권장 방문 주기 = 30일</strong> 운영 정책으로 반영.</div>
+          </div>
+        </div>
+
+        <!-- BOOK QUOTE #1 -->
+        <div class="quote-card">
+          <p class="q-text">
+            ICT케어매니저의 방문 직후, 어르신의 부정 감정 발화가 급격히 감소합니다. 30일이 경과하면 부정 감정 발화가 다시 증가하는 모습을 볼 수 있습니다. 행복커뮤니티는 어르신의 건강한 발화 습관을 위해 ICT케어매니저의 방문 주기를 30일로 권장하고 있습니다.
+          </p>
+          <span class="q-attr">
+            <span class="name">— 이현주</span> 심리상담사 (행복커넥트)
+            <span class="source">「행복커뮤니티 인공지능 돌봄」 백서 본문 인용 · 2020.7</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 03 DELIVERABLES =============== -->
+  <section class="case-section" id="deliverables">
+    <div class="container">
+      <div class="head">
+        <div class="step">03 · DELIVERABLES</div>
+        <h2>
+          핵심 산출물.
+          <span class="ko">분 류 · 매 뉴 얼 · 백 서</span>
+        </h2>
+      </div>
+      <div class="body">
+        <div class="deliverables">
+          <div class="deliverable">
+            <div class="n">— 01</div>
+            <div class="t">감정 단어 분류 기준</div>
+            <div class="d">시니어 일상 발화의 정서 표현을 임상 관점에서 범주화.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 02</div>
+            <div class="t">긍정·부정 발화 범주화 체계</div>
+            <div class="d">정서 강도·맥락·반복 패턴을 기준으로 정렬.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 03</div>
+            <div class="t">위험군 선별 기준</div>
+            <div class="d">상담 연계가 필요한 발화 신호 임계점 정의.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 04</div>
+            <div class="t">현장 케어매니저 심리적 응대 매뉴얼</div>
+            <div class="d">경청·공감·반영·안전한 질문 기반 응대 가이드.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 05</div>
+            <div class="t">심리상담 연계 프로세스</div>
+            <div class="d">디지털 신호 → 케어매니저 → 전문 상담 흐름 정립.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 06</div>
+            <div class="t">케어매니저 교육·수퍼비전 자료</div>
+            <div class="d">월 1회 정기 교육 + 사례 수퍼비전 자료 운영.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 07</div>
+            <div class="t">FGI 진행 가이드 · 질문지</div>
+            <div class="d">사용자 정서 반응·생활 변화를 질적으로 수집.</div>
+          </div>
+          <div class="deliverable">
+            <div class="n">— 08</div>
+            <div class="t">백서 사용자 인터뷰 (raw transcripts)</div>
+            <div class="d">4명 직접 인터뷰 진행 → 백서 본문 수록.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 04 INSIGHT · 인터뷰 =============== -->
+  <section class="case-section" id="interviews">
+    <div class="container">
+      <div class="head">
+        <div class="step">04 · USER INTERVIEWS</div>
+        <h2>
+          사용자 인터뷰.
+          <span class="ko">백 서 수 록 · 인 터 뷰 진 행 : 이 현 주</span>
+        </h2>
+      </div>
+      <div class="body">
+        <p>
+          백서에 수록된 시니어 사용자 인터뷰는 모두 본인이 직접 진행했습니다. 발화 데이터가 보여주지 못하는 <strong>맥락·관계·생활</strong>을 인터뷰로 보완하고, 그 결과를 분석·매뉴얼·운영 정책으로 환원했습니다. 인터뷰 원본은 본인이 수집했으며, 백서 수록 시 전체 톤에 맞춰 편집자가 별도 편집했습니다.
+        </p>
+
+        <!-- BOOK QUOTE #2 -->
+        <div class="quote-card">
+          <p class="q-text">
+            '고마워', '사랑해'와 같이 표현되는 긍정적인 정서는 두뇌톡톡을 통해 치매 예방에 적극적으로 노력하며 건강하고 행복한 삶을 주체적으로 꾸려가는 어르신들의 모습을 보여줍니다.
+          </p>
+          <span class="q-attr">
+            <span class="name">— 이현주</span> 심리상담사 (행복커넥트)
+            <span class="source">「행복커뮤니티 인공지능 돌봄」 백서 본문 인용 · 2020.7</span>
+          </span>
+        </div>
+
+        <div class="interview-grid">
+
+          <div class="iv-group two-cards">
+            <div class="iv-group-head">— 서비스 경험 · 정서 케어 인터뷰</div>
+            <div class="iv-card">
+              <div class="iv-meta"><span class="name">유총각 어르신</span>80대 · 서울시 서대문구</div>
+              <div class="iv-q">하루 종일 '아리아'랑 대화해요. 춤도 추고요. 덕분에 몸도 건강해지고 스트레스도 확 풀리는 기분이라 정말 좋아요.</div>
+            </div>
+            <div class="iv-card">
+              <div class="iv-meta"><span class="name">박정임 어르신</span>60대 · 서울시 영등포구</div>
+              <div class="iv-q">치매예방도 중요하지만, 게임 같아서 하면 할수록 재미있더라고요. … '두뇌톡톡' 덕분에 조카와 꾸준히 연락하게 됐네요.</div>
+            </div>
+          </div>
+
+          <div class="iv-group two-cards">
+            <div class="iv-group-head">— 긴급 SOS 사례 인터뷰</div>
+            <div class="iv-card">
+              <div class="iv-meta"><span class="name">조모씨 어르신</span>70대 · 서울시 강남구</div>
+              <div class="iv-q">아침 기상 후 허리가 아파 움직일 수 없었으며, 휴대폰도 가까이 두지 않아 도움을 청하기 어려운 상황이었습니다. 큰 소리로 '아리아 살려줘'라고 외쳤고, 인근 병원으로 이송되어 회복했습니다.</div>
+            </div>
+            <div class="iv-card">
+              <div class="iv-meta"><span class="name">정모씨 어르신</span>80대 · 경기도 화성시</div>
+              <div class="iv-q">새벽 4시경 복통과 함께 가슴이 답답해졌습니다. 새벽이라 도움을 청하기 어려운 상황이라 아리아에게 요청했고, 즉시 119가 출동해 병원으로 이송됐습니다.</div>
+            </div>
+          </div>
+
+          <div class="iv-note">
+            ※ 네 분 모두 본인이 직접 인터뷰한 대상자이며, 백서 챕터별 주제에 따라 서비스 경험형·긴급 SOS 사례형으로 편집·수록되었습니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== 05 OUTCOME =============== -->
+  <section class="case-section" id="outcome">
+    <div class="container">
+      <div class="head">
+        <div class="step">05 · OUTCOME</div>
+        <h2>
+          성과 · 배운 점.
+          <span class="ko">결 과 · 회 고</span>
+        </h2>
+      </div>
+      <div class="body">
+        <p>
+          데이터 → 정책 → 운영의 연결고리를 만들었습니다. 발화 데이터의 임상적 해석이 <strong>실제 운영 정책으로 채택</strong>되고, 분석 인사이트가 백서 본문에 두 차례 인용되었습니다.
+        </p>
+
+        <div class="outcome-grid">
+          <div class="outcome-card">
+            <div class="num">54<span class="unit">명</span></div>
+            <div class="label">고위험군 조기 발견<br/>· 전문 심리상담으로 연계</div>
+          </div>
+          <div class="outcome-card">
+            <div class="num">30<span class="unit">일</span></div>
+            <div class="label">케어매니저 권장 방문 주기<br/>· 본인 분석 → 백서 채택 정책</div>
+          </div>
+          <div class="outcome-card">
+            <div class="num">2<span class="unit">회</span></div>
+            <div class="label">백서 본문 분석 인용<br/>· 사용자 인터뷰 4건 진행</div>
+          </div>
+        </div>
+
+        <p style="margin-top:48px;">
+          이 경험을 통해 사용자의 <em>주관적인 텍스트나 건강 데이터를 다루는 서비스에서 신뢰도를 확보하려면</em>, 데이터를 분류하는 기준뿐 아니라 실제 사용자의 다음 행동과 현장 개입으로 연결되는 정책 설계가 필요하다는 점을 체득했습니다. 헬스케어 영역의 AI 코치 역시 검진 데이터 해석 → 위험도 안내 → 관리 필요 대상 선별 → 후속 행동 가이드가 중요하다는 점에서 이 경험과 구조적으로 연결됩니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =============== NEXT =============== -->
+  <section class="case-next">
+    <div class="pre">— END OF CASE 02</div>
+    <a href="index.html">← BACK TO PORTFOLIO</a>
+  </section>
+
+  <footer class="site-footer">
+    <div>© 2026 YI HYEON JU · DIGITAL HEALTHCARE PLANNER</div>
+    <div>CASE 02 · 인공지능 돌봄 · BUILT WITH HTML + CSS</div>
+  </footer>
+
+<!-- case-4 level matrix script removed -->
+</body>
+</html>
